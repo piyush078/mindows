@@ -1,0 +1,5 @@
+@use '../../index';
+
+.LogOff {
+  @include index.fullScreen;
+}

@@ -1,0 +1,12 @@
+@use './index';
+
+* {
+  @include index.reset;
+}
+
+html, body, #root, .App {
+  @include index.reset;
+  @include index.fullScreen;
+
+  overflow: hidden !important;
+}
