@@ -1,0 +1,62 @@
+@import './variables';
+
+@mixin reset {
+  margin: 0;
+  padding: 0;
+}
+
+@mixin fullscreen {
+  height: 100%;
+  width: 100%;
+}
+
+@mixin wallpaperbg {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+@mixin fonttype($type: 'regular') {
+  @if $type == 'light' {
+    font-family: 'Segoe UI Light', 'Open Sans Light';
+  } @else if $type == 'bold' {
+    font-family: 'Segoe UI Bold', 'Open Sans Bold';
+  } @else if $type == 'semibold' {
+    font-family: 'Segoe UI Semibold', 'Open Sans Semibold';
+  } @else {
+    font-family: $defaultFont;
+  }
+}
+
+@mixin overlay {
+  content: "";
+  position: absolute;
+  background: rgba(0,0,0,.6);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+@mixin transitionFadeIn {
+  .fade {
+    &-enter {
+      opacity: 0;
+    }
+
+    &-enter-active {
+      opacity: 1;
+      transition: opacity 200ms;
+    }
+
+    &-exit {
+      opacity: 1;
+    }
+    
+    &-exit-active {
+      opacity: 0;
+      transition: opacity 200ms;
+    }
+  }
+}

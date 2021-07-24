@@ -1,5 +1,5 @@
-@use '../../index';
+@use '../../scss/mixins';
 
 .LogOff {
-  @include index.fullScreen;
+  @include mixins.fullscreen;
 }

@@ -22,3 +22,7 @@
   font-family: 'Open Sans Italic';
   src: url('/fonts/OpenSans-Italic.ttf') format('ttf');
 }
+
+html, body {
+  background: rgb(1, 1, 16);
+}
