@@ -1,5 +1,8 @@
 @use '../../scss/mixins';
 
-.LogOff {
-  @include mixins.fullscreen;
+.new-account-opt {
+  @include mixins.fonttype('semibold');
+  text-decoration: none;
+  color: white;
+  margin-top: 16px;
 }

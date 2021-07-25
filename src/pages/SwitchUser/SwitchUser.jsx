@@ -8,6 +8,7 @@ import { selectBootBackgrounds } from '../../redux/boot/boot.selectors';
 import { getBootBackgrounds } from '../../redux/boot/boot.actions';
 import './SwitchUser.scss';
 import './LoginView.scss';
+import { Link, useParams } from 'react-router-dom';
 
 
 const LoginForm = () => {
@@ -50,6 +51,9 @@ const LoginView = ({ user, background }) => {
           <div className='login-pfp'><AiOutlineUser /></div>
           <div className='login-username'>{user.username || ''}</div>
           <LoginForm />
+          <Link to='/newaccount' className='new-account-opt'>
+            Create a new user account
+          </Link>
         </div>
       </div>
     </React.Fragment>
@@ -57,11 +61,12 @@ const LoginView = ({ user, background }) => {
 };
 
 
-const SwitchUser = ({ user }) => {
+const SwitchUser = ({ user, ...props }) => {
 
   const backgrounds = useSelector(selectBootBackgrounds);
   const [hasDoneLoading, onDoneLoading] = useState(false);
   const dispatch = useDispatch();
+  const params = useParams();
   useEffect(() => dispatch(getBootBackgrounds()), [dispatch]);
 
   return (

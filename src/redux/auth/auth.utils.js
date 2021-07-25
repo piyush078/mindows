@@ -1,8 +1,14 @@
 const storageKeys = {
-  PERSISTENT_USER: 'PERSISTENT_USER'
+  PERSISTENT_USERS: 'PERSISTENT_USERS'
 };
 
 export const checkForStoredUser = () => {
-  const user = localStorage.getItem(storageKeys.PERSISTENT_USER);
-  return user ? JSON.parse(user) : {};
+  const users = localStorage.getItem(storageKeys.PERSISTENT_USERS);
+  return users ? JSON.parse(users) : [];
+};
+
+export const saveNewUser = (user) => {
+  const users = checkForStoredUser().concat(user);
+  localStorage.setItem(storageKeys.PERSISTENT_USERS, JSON.stringify(users));
+  return users;
 };

@@ -1,8 +1,9 @@
 import AuthActionTypes from './auth.types';
-import { checkForStoredUser } from './auth.utils';
+import { checkForStoredUser, saveNewUser } from './auth.utils';
 
 const initialState = {
-  currentUser: null,
+  users: null,
+  activeUser: null,
   loading: false,
   error: null
 };
@@ -10,8 +11,11 @@ const initialState = {
 const AuthReducer = (state = initialState, action) => {
   switch(action.type) {
     case AuthActionTypes.CHECK_USER_SESSION:
-      const user = state.currentUser || checkForStoredUser();
-      return { ...state, currentUser: user };
+      const users = state.users || checkForStoredUser();
+      return { ...state, users: users };
+    case AuthActionTypes.CREATE_NEW_ACCOUNT:
+      const newUsers = saveNewUser(action.payload);
+      return { ...state, users: newUsers };
     default:
       return state;
   }
