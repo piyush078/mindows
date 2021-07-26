@@ -1,4 +1,5 @@
 @use '../../scss/mixins';
+$pfpBackground: rgba(188, 188, 188, 0.5);
 
 .LoginScreen {
   @include mixins.fullscreen;
@@ -25,8 +26,7 @@
 
 .login-form {
 
-  $pfpWidth: 208px;
-  $pfpBackground: rgba(188, 188, 188, 0.5);
+  $pfpWidth: 200px;
 
   @include mixins.fonttype('light');
 
@@ -120,5 +120,40 @@
         right: 40px;
       }
     }
+  }
+}
+
+.login-users-list {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  cursor: default;
+
+  &-item {
+    @include mixins.fonttype;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    padding: 4px 8px;
+
+    &-pfp {
+      display: flex;
+      background: $pfpBackground;
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      margin-right: 16px;
+    }
+
+    & svg {
+      height: 24px;
+      width: 24px;
+      margin: auto;
+    }
+  }
+
+  li[current='1'] {
+    background: #1c7797;
   }
 }

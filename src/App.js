@@ -31,7 +31,7 @@ const App = () => {
           path='/switchuser'
           render={() => users
             ? users.length
-              ? <SwitchUser user={users} /> : <Redirect to='/newaccount' />
+              ? <SwitchUser users={users} /> : <Redirect to='/newaccount' />
             : <Redirect to='/' />} />
 
         <Route
