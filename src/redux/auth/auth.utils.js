@@ -1,3 +1,5 @@
+import { PublicUser } from "./auth.user";
+
 const storageKeys = {
   PERSISTENT_USERS: 'PERSISTENT_USERS'
 };
@@ -11,4 +13,8 @@ export const saveNewUser = (user) => {
   const users = checkForStoredUser().concat(user);
   localStorage.setItem(storageKeys.PERSISTENT_USERS, JSON.stringify(users));
   return users;
+};
+
+export const safeguardUser = (users) => {
+  return users ? users.map(user => PublicUser(user)) : users;
 };

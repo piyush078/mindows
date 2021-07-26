@@ -34,9 +34,7 @@ const LoginForm = () => {
 const LoginView = ({ users, background }) => {
 
   const [selectedUser, changeSelectedUser] = useState(0);
-  const styles = {
-    backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")'
-  };
+  const styles = {backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")'};
 
   return (
     <React.Fragment>

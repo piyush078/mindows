@@ -11,7 +11,7 @@ const LockCover = ({ background, onDoneLoading }) => {
 
   const [classes, updateClass] = useState('LockCover');
   const [opacity, updateOpacity] = useState(0);
-  const styles = {backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")' };
+  const styles = {backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")'};
 
   // add escape key event listener
   const onPressEscape = function(event) {

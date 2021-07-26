@@ -3,3 +3,8 @@ export const User = (name, username, password) => ({
   username: username,
   password: password
 });
+
+export const PublicUser = (user) => ({
+  name: user.name,
+  username: user.username
+});
