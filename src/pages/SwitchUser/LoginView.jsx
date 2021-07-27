@@ -106,7 +106,7 @@ const LoginView = ({ users, background, onLogin, authError, authSuccess }) => {
         </div>
 
         {
-          users.length > 1
+          !authSuccess && users.length > 1
             && (
               <div className='login-users-list'>
               {
