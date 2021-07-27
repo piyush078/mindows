@@ -4,16 +4,14 @@
  */
 
 .loader {
-  width: 48px;
-  height: 48px;
   background: transparent;
+  position: relative;
 }
 
 .loader .circle {
   position: absolute;
-  width: 32px;
-  height: 32px;
   opacity: 0;
+  top: 20%;
   transform: rotate(225deg);
   animation-iteration-count: infinite;
   animation-name: orbit;
@@ -27,7 +25,6 @@
   height: 6px;
   border-radius: 5px;
   background: #fff;
-  box-shadow: 0 0 9px rgba(255, 255, 255, .7);
 }
 
 .loader .circle:nth-child(2) {
@@ -46,6 +43,16 @@
   animation-delay: 960ms;
 }
 
+.loader .bg {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  margin-left: -16px;
+  margin-top: -16px;
+  border-radius: 13px;
+  background-color: transparent;
+  animation: bgg 16087ms ease-in alternate infinite;
+}
 
 @keyframes orbit {
   0% {

@@ -22,7 +22,7 @@ const LoginError = ({ error, onCancel }) => (
 
 const LoginSuccess = () => (
   <div className='LoginSuccess'>
-    <BootLogo />
+    <BootLogo size='small' />
     <span>{Strings.SUCCESSFUL_LOGIN_WELCOME_TEXT}</span>
   </div>
 );
