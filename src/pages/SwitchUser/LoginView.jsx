@@ -1,40 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { VscEye, VscArrowRight } from 'react-icons/vsc';
 import { AiOutlineUser } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+
+import { Strings } from '../../data.store';
+import BootLogo from '../../components/BootLogo/BootLogo';
+import Button from '../../components/Button/Button';
 import './LoginView.scss';
-import { Link, useParams } from 'react-router-dom';
 
 
-const LoginForm = () => {
+const LoginError = ({ error, onCancel }) => (
+  <div className='LoginError'>
+    <span>{error.text}</span>
+    <Button
+      onClick={onCancel}
+      classNames={['login-auth-error-button']}
+      text={'OK'} />
+  </div>
+);
+
+
+const LoginSuccess = () => (
+  <div className='LoginSuccess'>
+    <BootLogo />
+    <span>{Strings.SUCCESSFUL_LOGIN_WELCOME_TEXT}</span>
+  </div>
+);
+
+
+const LoginForm = ({ onSubmit }) => {
 
   const [isHiddenPassword, togglePasswordMode] = useState(true);
+  const [password, updatePassword] = useState('');
 
   return (
     <div className='login-fields'>
-      {false && <div className='login-fields-username'>
-        <input type='text' placeholder='User name' required />
-      </div>}
+
+      {
+        false
+          && <div className='login-fields-username'>
+            <input type='text' placeholder='User name' required />
+        </div>
+      }
+
       <div className='login-fields-password'>
-        <input required type={isHiddenPassword ? 'password' : 'text'} placeholder='Password' />
+        <input required
+          value={password}
+          onChange={e => updatePassword(e.target.value)}
+          onKeyUp={e => e.key === 'Enter' && onSubmit(password)}
+          type={isHiddenPassword ? 'password' : 'text'}
+          placeholder='Password' />
+        
         <div
           className='login-fields-password-eye'
           onMouseDown={() => togglePasswordMode(false)}
           onMouseUp={() => togglePasswordMode(true)}>
           <VscEye />
         </div>
-        <div className='login-fields-password-arrow'>
+
+        <div className='login-fields-password-arrow'
+          onClick={() => onSubmit(password)}>
           <VscArrowRight />
         </div>
       </div>
+
     </div>
   )
 };
 
 
-const LoginView = ({ users, background }) => {
+const LoginView = ({ users, background, onLogin, authError, authSuccess }) => {
 
   const [selectedUser, changeSelectedUser] = useState(0);
   const styles = {backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")'};
+  const [showError, toggleShowError] = useState(authError);
+  useEffect(() => toggleShowError(authError), [authError]);
 
   return (
     <React.Fragment>
@@ -48,11 +88,23 @@ const LoginView = ({ users, background }) => {
           <div className='login-username'>
             {users[selectedUser].name}
           </div>
-          <LoginForm />
-          <Link to='/newaccount' className='new-account-opt'>
-            Create a new user account
-          </Link>
+          {
+            showError
+            ? <LoginError error={authError} onCancel={() => toggleShowError(false)} />
+            : authSuccess
+              ? <LoginSuccess />
+              : <LoginForm onSubmit={(password) => onLogin(selectedUser, password)} />
+          }
+          {
+            !authSuccess
+              && (
+                <Link to='/newaccount' className='new-account-opt'>
+                  {Strings.SIGNUP_LINK_LOGIN_VIEW}
+                </Link>
+              )
+          }
         </div>
+
         {
           users.length > 1
             && (

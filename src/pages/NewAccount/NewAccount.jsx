@@ -6,20 +6,21 @@ import { VscArrowLeft } from 'react-icons/vsc';
 import { User } from '../../redux/auth/auth.user';
 import { selectUsers } from '../../redux/auth/auth.selectors';
 import { createNewAccount } from '../../redux/auth/auth.actions';
+import { Strings } from '../../data.store';
 import ChildView from './ChildView';
 import './NewAccount.scss';
 
 
 const details = [
   {
-    title: "Who's going to use this PC?",
-    subtitle: 'What name do you want to use?',
+    title: Strings.SIGNUP_NAME_VIEW_TITLE,
+    subtitle: Strings.SIGNUP_NAME_VIEW_SUBTITLE,
     type: 'text',
     placeholder: 'User name',
   },
   {
-    title: 'Create a super memorable password',
-    subtitle: "Make sure to pick something you'll absolutely remember",
+    title: Strings.SIGNUP_PASSWORD_VIEW_TITLE,
+    subtitle: Strings.SIGNUP_PASSWORD_VIEW_SUBTITLE,
     type: 'password',
     placeholder: 'Password',
   }
@@ -47,7 +48,8 @@ const NewAccount = () => {
     <div className='NewAccount'>
       <div className='view-header'>
         <div>
-          {!currentView && <VscArrowLeft onClick={() => updateCurrentView(!currentView)} />}
+          {!currentView
+            && <VscArrowLeft onClick={() => updateCurrentView(!currentView)} />}
         </div>
         <div className='view-header-title'>Account</div>
         <div></div>

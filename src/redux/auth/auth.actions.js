@@ -9,3 +9,8 @@ export const createNewAccount = (userDetails) => ({
   payload: userDetails
 });
 
+export const signInUser = (userIndex, password) => ({
+  type: AuthActionTypes.SIGN_IN,
+  payload: { userIndex: userIndex, password: password }
+});
+

@@ -7,7 +7,6 @@ import './BootLogo.scss';
 
 const BootLogo = () => (
   <div className='loader'>
-    <div className="bg"></div>
     <div className='circle'></div>
     <div className='circle'></div>
     <div className='circle'></div>

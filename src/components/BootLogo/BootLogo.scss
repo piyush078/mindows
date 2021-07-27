@@ -4,15 +4,15 @@
  */
 
 .loader {
-  width: 50px;
-  height: 50px;
+  width: 48px;
+  height: 48px;
   background: transparent;
 }
 
 .loader .circle {
   position: absolute;
-  width: 38px;
-  height: 38px;
+  width: 32px;
+  height: 32px;
   opacity: 0;
   transform: rotate(225deg);
   animation-iteration-count: infinite;
@@ -46,16 +46,6 @@
   animation-delay: 960ms;
 }
 
-.loader .bg {
-  position: absolute;
-  width: 70px;
-  height: 70px;
-  margin-left: -16px;
-  margin-top: -16px;
-  border-radius: 13px;
-  background-color: transparent;
-  animation: bgg 16087ms ease-in alternate infinite;
-}
 
 @keyframes orbit {
   0% {

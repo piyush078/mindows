@@ -18,3 +18,8 @@ export const saveNewUser = (user) => {
 export const safeguardUser = (users) => {
   return users ? users.map(user => PublicUser(user)) : users;
 };
+
+export const signInUser = (userIndex, password) => {
+  const users = checkForStoredUser();
+  return users[userIndex].password === password;
+};

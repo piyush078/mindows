@@ -1,7 +1,11 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineUser } from 'react-icons/ai';
-import React, { useEffect, useState } from "react";
+
 import BootLogo from '../../components/BootLogo/BootLogo';
+import Button from '../../components/Button/Button';
+import { Strings } from '../../data.store';
+import './ChildView.scss';
 
 
 const ChildView = (props) => {
@@ -48,14 +52,15 @@ const ChildView = (props) => {
             <div className='view-footer-signin'>
               {
                 signInOpt
-                && <Link to='/switchuser?cover=false'>Or, even better, sign-in</Link>
+                && <Link to='/switchuser?cover=false'>{Strings.LOGIN_LINK_SIGNUP_VIEW}</Link>
               }
             </div>
             <div className='view-footer-next'>
-              <button
-                type='view-footer-button'
+              <Button
+                styles={{ background: '#3e3c91' }}
                 disabled={!value || validity(value)}
-                onClick={() => updateOpacity(0) || setTimeout(onSubmit, 250)}>Next</button>
+                onClick={() => updateOpacity(0) || setTimeout(onSubmit, 250)} 
+                text={'Next'} />
             </div>
           </div>
         </React.Fragment>

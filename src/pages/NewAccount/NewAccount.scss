@@ -27,7 +27,7 @@
     font-size: 32px;
   }
 
-  .view-header-title {
+  &-title {
     @include mixins.fonttype('semibold');
     text-align: center;
     width: 320px;
@@ -40,110 +40,4 @@
   @include mixins.fullscreen;
   height: calc(100% - 40px);
   position: relative;
-}
-
-.ChildView {
-  @include mixins.fullscreen;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-}
-
-.AccountNameView, .AccountPasswordView {
-  @extend .ChildView;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: column;
-  transition: opacity 0.25s ease-out;
-} 
-
-.AccountSettingUpView {
-  @extend .ChildView;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
-.heading {
-
-  text-align: center;
-  padding-top: 48px;
-
-  p {
-    color: white;
-    @include mixins.fonttype('light');
-  }
-
-  &-title {
-    font-size: 64px;
-  }
-
-  &-subtitle {
-    font-size: 24px;
-  }
-}
-
-.view-form {
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -24px;
-
-  input {
-    font-size: 18px;
-    padding: 8px 8px;
-    outline: none;
-    border: 2px solid white;
-    width: 480px;
-  }
-}
-
-.view-form-pfp {
-  border-radius: 50%;
-  border: 2px solid white;
-  font-size: 120px;
-  height: 160px;
-  width: 160px;
-  display: flex;
-  text-align: center;
-  color: white;
-  margin-bottom: 32px;
-
-  > * {
-    margin: auto;
-  }
-}
-
-.view-footer {
-
-  @include mixins.fonttype;
-  width: 100%;
-  padding: 0 32px 32px 32px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-
-  a {
-    text-decoration: none;
-    color: white;
-  }
-
-  button {
-    @include mixins.fonttype;
-    width: 200px;
-    font-size: 16px;
-    color: white;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    background: #3e3c91;
-    outline: none;
-    border: 0px;
-  }
-
-  button:disabled {
-    opacity: .5;
-  }
 }

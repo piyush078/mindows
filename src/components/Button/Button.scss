@@ -1,0 +1,17 @@
+@use '../../scss/mixins';
+
+.Button {
+  @include mixins.fonttype;
+  width: 200px;
+  font-size: 16px;
+  color: white;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  outline: none;
+  border: 0px;
+}
+
+
+.Button:disabled {
+  opacity: .5;
+}

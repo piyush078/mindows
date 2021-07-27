@@ -7,9 +7,9 @@ import './LockCover.scss';
 const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
 const timeOptions = { hour12: true, hour: 'numeric', minute: '2-digit' };
 
-const LockCover = ({ background, onDoneLoading }) => {
+const LockCover = ({ background, onDoneLoading, autoHide }) => {
 
-  const [classes, updateClass] = useState('LockCover');
+  const [classes, updateClass] = useState('LockCover' + (autoHide ? ' LockCoverHidden' : ''));
   const [opacity, updateOpacity] = useState(0);
   const styles = {backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")'};
 
