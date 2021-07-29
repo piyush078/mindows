@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { VscArrowLeft } from 'react-icons/vsc';
 
-import { User } from '../../redux/auth/auth.user';
+import { getUsername, User } from '../../redux/auth/auth.user';
 import { selectUsers } from '../../redux/auth/auth.selectors';
 import { createNewAccount } from '../../redux/auth/auth.actions';
 import { Strings } from '../../data.store';
@@ -72,7 +72,7 @@ const NewAccount = () => {
                 )}
                 details={details[+!currentView]}
                 validity={(val) => (
-                  currentView ? users.filter(user => user.username === val).length !== 0 : false
+                  currentView ? users.filter(user => getUsername(user) === val).length !== 0 : false
                 )} />
             )
         }

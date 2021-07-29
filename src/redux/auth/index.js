@@ -25,7 +25,7 @@ const AuthReducer = (state = initialState, action) => {
       const { userIndex, password } = action.payload;
       const signInSuccess = signInUser(userIndex, password);
       if(signInSuccess) {
-        return { ...state, activeUser: userIndex, success: true };
+        return { ...state, activeUser: state.users[userIndex], success: true };
       } else {
         return { ...state, error: { text: Strings.INCORRECT_PASSWORD, __id: (new Date()).getTime() } };
       }

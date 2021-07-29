@@ -1,3 +1,5 @@
+import { FcCalculator, FcCalendar, FcDocument, FcFolder } from 'react-icons/fc';
+
 export const Wallpapers = {
   list: [
     {
@@ -12,6 +14,7 @@ export const Wallpapers = {
   defaultWallpaper: 1
 };
 
+
 export const Strings = {
   INCORRECT_PASSWORD: 'The password is incorrect. Try again.',
   LOGIN_LINK_SIGNUP_VIEW: 'Or, even better, sign-in',
@@ -21,4 +24,51 @@ export const Strings = {
   SIGNUP_PASSWORD_VIEW_TITLE: 'Create a super memorable password',
   SIGNUP_PASSWORD_VIEW_SUBTITLE: "Make sure to pick something you'll absolutely remember",
   SUCCESSFUL_LOGIN_WELCOME_TEXT: 'Welcome',
+
+  TASKBAR_SEARCH_PLACEHOLDER: 'Type here to search',
 };
+
+
+export const AppIcons = {
+  fsexplorer: FcFolder,
+  notepad: FcDocument,
+};
+
+
+export const InstalledApps = [
+  {
+    category: 'C',
+    apps: [
+      {
+        id: 'calculator',
+        name: 'Calculator',
+        icon: FcCalculator,
+      },
+      {
+        id: 'calender',
+        name: 'Calender',
+        icon: FcCalendar,
+      }
+    ]
+  },
+  {
+    category: 'M',
+    apps: [
+      {
+        id: 'fsexplorer',
+        name: 'Mindows Explorer',
+        icon: FcFolder,
+      },
+    ]
+  },
+  {
+    category: 'N',
+    apps: [
+      {
+        id: 'notepad',
+        name: 'Notepad',
+        icon: FcDocument,
+      }
+    ]
+  }
+];

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
 
 import LockCover from '../../components/LockCover/LockCover';
 import { selectBootBackgrounds } from '../../redux/boot/boot.selectors';
@@ -8,10 +9,9 @@ import { selectAuthError, selectAuthSuccess } from '../../redux/auth/auth.select
 import { getBootBackgrounds } from '../../redux/boot/boot.actions';
 import LoginView from './LoginView';
 import './SwitchUser.scss';
-import { useLocation } from 'react-router-dom';
 
 
-const SwitchUser = ({ users, ...props }) => {
+const SwitchUser = ({ users }) => {
 
   const backgrounds = useSelector(selectBootBackgrounds);
   const authError = useSelector(selectAuthError);
@@ -19,10 +19,11 @@ const SwitchUser = ({ users, ...props }) => {
   const [hasDoneLoading, onDoneLoading] = useState(false);
   const dispatch = useDispatch();
   const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => dispatch(getBootBackgrounds()), [dispatch]);
   useEffect(() => {
-    authSuccess && setTimeout(() => console.log('Logged in'), 2000);
+    authSuccess && setTimeout(() => history.push('/desktop'), 2000);
   }, [authSuccess]);
 
   const onLogin = (userIndex, password) => {

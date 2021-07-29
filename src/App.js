@@ -8,6 +8,7 @@ import SwitchUser from './pages/SwitchUser/SwitchUser';
 import BootScreen from './pages/BootScreen/BootScreen';
 import NewAccount from './pages/NewAccount/NewAccount';
 import './App.scss';
+import Desktop from "./pages/Desktop/Desktop";
 
 const App = () => {
 
@@ -39,6 +40,10 @@ const App = () => {
           render={() => users
             ? <NewAccount />
             : <Redirect to='/' />} />
+
+        <Route
+          path='/desktop'
+          component={Desktop} />
 
       </Switch>
     </div>

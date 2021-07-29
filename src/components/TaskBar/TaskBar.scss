@@ -1,0 +1,102 @@
+@use '../../scss/mixins';
+@import '../../scss/variables';
+
+$taskBarHeight: 48px;
+$taskBarAppSpacing: 16px;
+
+.TaskBar-children {
+  font-size: 16px;
+  margin-bottom: -4px;
+  display: flex;
+  height: $taskBarHeight;
+  align-items: center;
+}
+
+.TaskBar-left {
+  display: flex;
+  align-items: flex-start;
+
+  > * {
+    @extend .TaskBar-children;
+    padding: 0 $taskBarAppSpacing;
+  }
+}
+
+.TaskBar-right {
+  display: flex;
+  align-items: flex-end;
+  
+  > * {
+    @extend .TaskBar-children;
+    padding: 0 ($taskBarAppSpacing * .5);
+  }
+}
+
+.TaskBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $taskBarHeight !important;
+  background: $taskBarBg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 100;
+
+  > * {
+    height: $taskBarHeight;
+  }
+
+  svg {
+    fill: $taskBarFg;
+  }
+
+  &-searchbar {
+    position: relative;
+    width: 400px;
+    height: $taskBarHeight;
+
+    &-pseudo, input {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      font-size: 16px;
+      padding: 0 $taskBarAppSpacing;
+    }
+
+    &-pseudo {
+      display: flex;
+      align-items: center;
+      color: white;
+      background: #625959;
+
+      span {
+        margin-left: 12px;
+      }
+    }
+
+    input {
+      outline: none;
+      border: 0;
+      height: $taskBarHeight;
+      transition: background 0.25s ease;
+    }
+
+    input:not(:valid) {
+      background: transparent;
+    }
+
+    input:valid, input:focus {
+      background: white;
+      color: black;
+    }
+  }
+
+  &-app {
+    font-size: 24px;
+  }
+}

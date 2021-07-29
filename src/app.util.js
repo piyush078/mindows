@@ -20,7 +20,12 @@ export const unsubscribeClock = clockRef => {
 };
 
 export const formatDateTime = (dateTime, dateOptions, timeOptions) => {
-  const time = dateTime.toLocaleTimeString([], timeOptions).replace('AM', '').replace('PM', '');
+  const time = dateTime.toLocaleTimeString([], timeOptions);
   const date = dateTime.toLocaleDateString([], dateOptions);
-  return { date: date, time: time };
+  return {
+    date: date,
+    time: timeOptions['hour12suffix']
+      ? time
+      : time.replace('AM', '').replace('PM', '')
+  };
 };
