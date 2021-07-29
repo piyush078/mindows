@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Switch, Route, useLocation, Redirect } from "react-router-dom";
 
-import { selectUsers } from './redux/auth/auth.selectors';
+import { selectActiveUser, selectUsers } from './redux/auth/auth.selectors';
 import { checkUserSession } from "./redux/auth/auth.actions";
 import SwitchUser from './pages/SwitchUser/SwitchUser';
 import BootScreen from './pages/BootScreen/BootScreen';
@@ -13,6 +13,7 @@ import Desktop from "./pages/Desktop/Desktop";
 const App = () => {
 
   const users = useSelector(selectUsers);
+  const activeUser = useSelector(selectActiveUser);
   const dispatch = useDispatch();
   const location = useLocation();
   useEffect(() => setTimeout(() => dispatch(checkUserSession()), 2000), [dispatch]);
@@ -43,7 +44,9 @@ const App = () => {
 
         <Route
           path='/desktop'
-          component={Desktop} />
+          render={() => activeUser
+            ? <Desktop activeUser={activeUser} />
+            : <Redirect to='/' />} />
 
       </Switch>
     </div>

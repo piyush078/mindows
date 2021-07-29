@@ -9,11 +9,10 @@ import { selectActiveUser } from '../../redux/auth/auth.selectors';
 import { loadAccount } from '../../redux/account/account.actions';
 import './Desktop.scss';
 
-const Desktop = () => {
+const Desktop = ({ activeUser }) => {
 
-  const activeUser = useSelector(selectActiveUser);
   const accountSettings = useSelector(selectAccountSettings);
-  const [startMenu, toggleStartMenu] = useState(true);
+  const [startMenu, toggleStartMenu] = useState(false);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -32,7 +31,7 @@ const Desktop = () => {
         apps={taskbarApps}
         onMindowsIconClick={() => toggleStartMenu(!startMenu)} />
 
-      {activeUser && <StartMenu user={activeUser} hide={!startMenu} />}
+      <StartMenu user={activeUser} hide={!startMenu} />
     </div>
   )
 
