@@ -7,7 +7,7 @@ import { Strings } from '../../data.store';
 import './TaskBar.scss';
 
 
-const TaskBar = ({ apps, onMindowsClick }) => {
+const TaskBar = ({ apps, programs, onIconClick, onMindowsClick }) => {
   return (
     <div className='TaskBar'>
       <div className='TaskBar-left'>
@@ -23,8 +23,12 @@ const TaskBar = ({ apps, onMindowsClick }) => {
         </div>
         {
           apps.map((app, i) => (
-            <div className='TaskBar-app' key={i}>
+            <div key={i}
+              className='TaskBar-app'
+              title={app.name}
+              onClick={() => onIconClick(app)}>
               {app.icon()}
+              <span>{programs[app.id]?.length || 0}</span>
             </div>
           ))
         }

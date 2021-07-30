@@ -1,5 +1,6 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
+import { useSelector } from 'react-redux';
 import TitleBar from '../../components/TitleBar/TitleBar';
 import './Program.scss';
 
@@ -11,22 +12,16 @@ const defaultHeight = '480px', defaultWidth = '640px';
 const Program = (props) => {
 
   const app = props.app;
+  const initWindowHeight = defaultHeight, initWindowWidth = defaultWidth;
   const programRef = useRef(null);
-  const { program, initWindowHeight, initWindowWidth } = props;
   const [dimensions, updateDimensions] = useState({
     delta: {
       x: leftOffset(initWindowWidth),
       y: topOffset(initWindowHeight),
       reset: false,
     },
-    defaultStyle: {
-      height: initWindowHeight || defaultHeight,
-      width: initWindowWidth || defaultWidth
-    },
-    style: {
-      height: initWindowHeight || defaultHeight,
-      width: initWindowWidth || defaultWidth
-    },
+    defaultStyle: { height: initWindowHeight, width: initWindowWidth },
+    style: { height: initWindowHeight, width: initWindowWidth },
     isMaximized: false,
     isMinimized: false,
   });
@@ -67,7 +62,10 @@ const Program = (props) => {
           : null
       }>
 
-      <div className='Program' style={dimensions.style} ref={programRef}>
+      <div className='Program'
+        style={{ ...dimensions.style, zIndex: props.zIndex }}
+        ref={programRef}
+        onClick={props.onClickWindow}>
 
         <TitleBar
           app={app}
