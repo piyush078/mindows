@@ -8,6 +8,8 @@ import { selectAccountSettings, selectTaskBarApps } from '../../redux/account/ac
 import { selectActiveUser } from '../../redux/auth/auth.selectors';
 import { loadAccount } from '../../redux/account/account.actions';
 import './Desktop.scss';
+import Program from '../Program/Program';
+
 
 const Desktop = ({ activeUser }) => {
 
@@ -27,10 +29,12 @@ const Desktop = ({ activeUser }) => {
 
   return (
     <div className='Desktop' style={style}>
+
+      <Program />
+
       <TaskBar
         apps={taskbarApps}
         onMindowsIconClick={() => toggleStartMenu(!startMenu)} />
-
       <StartMenu user={activeUser} hide={!startMenu} />
     </div>
   )

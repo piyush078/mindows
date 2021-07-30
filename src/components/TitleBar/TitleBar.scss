@@ -1,0 +1,50 @@
+@use '../../scss/mixins';
+@import '../../scss/variables';
+
+.TitleBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: $titleBarHeight;
+  background: $titleBarBg;
+
+  &-details {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+
+    &-logo {
+      font-size: 24px;
+    }
+
+    &-title {
+      @include mixins.fonttype('semibold');
+      margin-left: 8px;
+    }
+  }
+
+  &-buttons {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    > * {
+      height: 100%;
+      width: $titleBarHeight;
+      font-size: 1.1em;
+      padding: .75em;
+    }
+
+    & > *:hover {
+      background: beige;
+    }
+
+    &-close:hover {
+      background: crimson;
+      color: white;
+    }
+  }
+}
