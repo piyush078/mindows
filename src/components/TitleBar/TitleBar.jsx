@@ -2,12 +2,11 @@ import React from 'react';
 import {
   VscChromeClose, VscChromeMinimize, VscChromeMaximize, VscChromeRestore
 } from 'react-icons/vsc';
-import { AppIcons } from '../../data.store';
 import './TitleBar.scss';
 
 const TitleBar = React.memo(({
-  _id,
-  appId,
+  app,
+  programId,
   title,
   isMaximized,
   onMinimize,
@@ -15,11 +14,12 @@ const TitleBar = React.memo(({
   onRestore,
   onTerminate
 }) => {
+
   return (
-    <div className={'TitleBar TitleBar__' + _id.toString()}>
+    <div className={'TitleBar TitleBar__' + programId.toString()}>
       <div className='TitleBar-details'>
         <div className='TitleBar-details-logo'>
-          {AppIcons[appId]()}
+          {app.icon()}
         </div>
         <div className='TitleBar-details-title'>
           {title}

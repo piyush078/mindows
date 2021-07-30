@@ -29,46 +29,25 @@ export const Strings = {
 };
 
 
-export const AppIcons = {
-  fsexplorer: FcFolder,
-  notepad: FcDocument,
-};
-
-
-export const InstalledApps = [
-  {
-    category: 'C',
-    apps: [
-      {
-        id: 'calculator',
-        name: 'Calculator',
-        icon: FcCalculator,
-      },
-      {
-        id: 'calender',
-        name: 'Calender',
-        icon: FcCalendar,
-      }
-    ]
+export const InstalledApps = {
+  calculator: {
+    id: 'calculator',
+    name: 'Calculator',
+    icon: FcCalculator,
   },
-  {
-    category: 'M',
-    apps: [
-      {
-        id: 'fsexplorer',
-        name: 'Mindows Explorer',
-        icon: FcFolder,
-      },
-    ]
+  calendar: {
+    id: 'calender',
+    name: 'Calender',
+    icon: FcCalendar,
   },
-  {
-    category: 'N',
-    apps: [
-      {
-        id: 'notepad',
-        name: 'Notepad',
-        icon: FcDocument,
-      }
-    ]
+  fsexplorer: {
+    id: 'fsexplorer',
+    name: 'Mindows Explorer',
+    icon: FcFolder,
+  },
+  notepad: {
+    id: 'notepad',
+    name: 'Notepad',
+    icon: FcDocument,
   }
-];
+};

@@ -10,6 +10,7 @@ const defaultHeight = '480px', defaultWidth = '640px';
 
 const Program = (props) => {
 
+  const app = props.app;
   const programRef = useRef(null);
   const { program, initWindowHeight, initWindowWidth } = props;
   const [dimensions, updateDimensions] = useState({
@@ -39,16 +40,13 @@ const Program = (props) => {
   const maximize = () => {
     updateDimensions({
       ...dimensions,
-      style: {
-        top: '0', bottom: '48px', left: '0', right: '0'
-      },
+      style: { top: '0', bottom: '48px', left: '0', right: '0' },
       delta: { ...dimensions.delta, reset: true, },
       isMaximized: true,
     });
   };
 
   const restore = () => {
-    console.log('restore');
     updateDimensions({
       ...dimensions,
       style: { ...dimensions.defaultStyle },
@@ -71,9 +69,9 @@ const Program = (props) => {
 
       <div className='Program' style={dimensions.style} ref={programRef}>
 
-        <TitleBar 
-          _id={'randomString'}
-          appId={'fsexplorer'}
+        <TitleBar
+          app={app}
+          programId={'randomString'}
           title={'Mindows Explorer'}
           isMaximized={dimensions.isMaximized}
           onMinimize={() => console.log('Minimized')}

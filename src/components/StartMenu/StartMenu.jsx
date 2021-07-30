@@ -90,9 +90,18 @@ const StartMenuApps = React.memo(() => {
     </div>
   );
 
+  let smApps = [];
+  const _Apps = Object.keys(InstalledApps).map(id => InstalledApps[id]);
+  [...(new Set(_Apps.map(app => app.name[0].toLowerCase())))].sort().forEach(c => {
+    smApps.push({
+      category: c.toUpperCase(),
+      apps: _Apps.filter(app => app.name[0].toLowerCase() === c) 
+    });
+  });
+
   return (
     <div className='StartMenu-apps'>
-      {InstalledApps.map((cat, i) => <Category category={cat} key={i} />)}
+      {smApps.map((cat, i) => <Category category={cat} key={i} />)}
     </div>
   );
 }, () => true);

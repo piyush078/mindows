@@ -2,18 +2,16 @@ import { GrWindows } from 'react-icons/gr';
 import { VscRss, VscSearch, VscTriangleUp, VscUnmute } from 'react-icons/vsc';
 import { FaBatteryFull, FaCommentAlt } from 'react-icons/fa';
 
-import { Strings, AppIcons } from '../../data.store';
 import Clock from '../Clock/Clock';
+import { Strings } from '../../data.store';
 import './TaskBar.scss';
 
 
-const TaskBar = ({
-  onMindowsIconClick, apps,
-}) => {
+const TaskBar = ({ apps, onMindowsClick }) => {
   return (
     <div className='TaskBar'>
       <div className='TaskBar-left'>
-        <div className='TaskBar-mindows-icon' onClick={onMindowsIconClick}>
+        <div className='TaskBar-mindows-icon' onClick={onMindowsClick}>
           <GrWindows />
         </div>
         <div className='TaskBar-searchbar'>
@@ -26,7 +24,7 @@ const TaskBar = ({
         {
           apps.map((app, i) => (
             <div className='TaskBar-app' key={i}>
-              {AppIcons[app]()}
+              {app.icon()}
             </div>
           ))
         }

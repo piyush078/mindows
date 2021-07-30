@@ -12,9 +12,7 @@ const initialState = {
       name: 'Recycle Bin',
     }
   ],
-  taskbarApps: [
-    'fsexplorer', 'notepad'
-  ]
+  taskbarApps: ['fsexplorer', 'notepad']
 };
 
 const AccountReducer = (state = initialState, action) => {
