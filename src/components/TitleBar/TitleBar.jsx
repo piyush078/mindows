@@ -26,18 +26,15 @@ const TitleBar = React.memo(({
         </div>
       </div>
       <div className='TitleBar-buttons'>
-        <div className='TitleBar-buttons-minimize'>
-          <VscChromeMinimize onClick={onMinimize} />
+        <div className='TitleBar-buttons-minimize' onClick={onMinimize}>
+          <VscChromeMinimize />
         </div>
-        <div className='TitleBar-buttons-maximize'>
-          {
-            isMaximized
-              ? <VscChromeRestore onClick={onRestore} />
-              : <VscChromeMaximize onClick={onMaximize} />
-          }
+        <div className='TitleBar-buttons-maximize'
+          onClick={isMaximized ? onRestore : onMaximize}>
+          {isMaximized ? <VscChromeRestore /> : <VscChromeMaximize />}
         </div>
-        <div className='TitleBar-buttons-close'>
-          <VscChromeClose onClick={onTerminate} />
+        <div className='TitleBar-buttons-close' onClick={onTerminate}>
+          <VscChromeClose />
         </div>
       </div>
     </div>

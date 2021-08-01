@@ -42,7 +42,7 @@ $taskBarAppSpacing: 16px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 100;
+  z-index: 10000;
 
   > * {
     height: $taskBarHeight;
@@ -97,6 +97,65 @@ $taskBarAppSpacing: 16px;
   }
 
   &-app {
+    margin-left: 4px;
     font-size: 24px;
+
+    &-instances {
+      position: absolute;
+      font-size: 12px;
+      display: none;
+      flex-direction: column;
+      width: max-content;
+      min-width: 240px;
+      bottom: 100%;
+      top: -1;
+      transform: translateX(-50%);
+      background: $taskBarHoverBg;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 16px;
+        cursor: default;
+        margin: 2px 8px;
+        border-radius: 4px;
+
+        &-title {
+          @include mixins.fonttype('semibold');
+          margin-right: 8px;
+          color: white;
+        }
+
+        &-close {
+          padding: 2px;
+
+          > * {
+            margin-bottom: -2px;
+          }
+        }
+      }
+
+      &-item:first-of-type {
+        margin-top: 6px;
+      }
+
+      &-item:last-of-type {
+        margin-bottom: 6px;
+      }
+
+      &-item:hover {
+        background: rgba(227, 21, 62, 0.4);
+      }
+    }
+  }
+
+  &-app:hover > * {
+    display: flex;
+  }
+
+  &-app-running {
+    border-bottom: 4px solid aqua;
+    background: rgba(192, 192, 192, 0.1);
   }
 }

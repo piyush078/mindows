@@ -9,7 +9,7 @@ import { InstalledApps } from '../../data.store';
 import { selectAccountSettings, selectTaskBarApps } from '../../redux/account/account.selectors';
 import { selectActiveUser } from '../../redux/auth/auth.selectors';
 import { loadAccount } from '../../redux/account/account.actions';
-import { startNewProgram } from '../../redux/memory/memory.action';
+import { startNewProgram, terminateProgram } from '../../redux/memory/memory.action';
 import { selectAppsInstances, selectProgramsData } from '../../redux/memory/memory.selectors';
 import './Desktop.scss';
 
@@ -17,23 +17,47 @@ import './Desktop.scss';
 const Desktop = ({ activeUser }) => {
 
   const accountSettings = useSelector(selectAccountSettings);
-  const [startMenu, toggleStartMenu] = useState(false);
   const dispatch = useDispatch();
+  const [startMenu, toggleStartMenu] = useState(false);
+  const style = { backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + accountSettings.background + '")' };
+  useEffect(() => dispatch(loadAccount(activeUser)), []);
+
+  // programsData: { pId_1: programData, pId_2: programData }
+  // appsInstances: { calculator: [pId_1, .., pId_k], calendar: [pId_1,..., pId_m] }
+  // runningPrograms: [pId_1, pId_2, ...]
   const programsData = useSelector(selectProgramsData);
   const appsInstances = useSelector(selectAppsInstances);
   const runningPrograms = Object.keys(programsData);
-  const [windows, updateWindows] = useState({ maxZIndex: 100, pIds: {} });
+  const [windows, updateWindows] = useState({ maxZIndex: 100, pId: null });
+  const [minimized, updateMinimized] = useState({});
 
-  useEffect(() => dispatch(loadAccount(activeUser)), []);
-
-  const style = { backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + accountSettings.background + '")' };
+  // taskbarApps: [calculator, calendar, ...]
   const taskbarApps = useSelector(selectTaskBarApps);
-  const taskbarAppsData = taskbarApps.map(id => InstalledApps[id]);
+  const taskbarAndOpenedApps = taskbarApps.concat(Object.keys(appsInstances));
+  const taskbarAppsData = [...(new Set(taskbarAndOpenedApps))].map(appId => InstalledApps[appId]);
 
-  const onClickProgramWindow = pId => {
-    const activeWindows = { ...windows.pIds };
-    activeWindows[pId] = windows.maxZIndex + 1;
-    updateWindows({ maxZIndex: windows.maxZIndex + 1, pIds: activeWindows });
+  // bring activated window/program to the foreground
+  const onClickProgramWindow = (pId) => (
+    updateWindows(
+      ({ maxZIndex }) => ({ maxZIndex: maxZIndex + 1, pId: pId })));
+
+  // add a program to minimized state
+  const onToggleMinimize = (pId, to) => {
+    const newMinimized = {};
+    newMinimized[pId] = to;
+    updateMinimized(Object.assign(minimized, newMinimized));
+  }
+
+  // when program is selected from taskbar
+  const onSelectFromTaskBar = pId => {
+    onClickProgramWindow(pId);
+    onToggleMinimize(pId, false);
+  };
+
+  // start a new program
+  const onStartNewProgram = (app) => {
+    toggleStartMenu(false);
+    dispatch(startNewProgram(app));
   };
 
   return (
@@ -43,17 +67,27 @@ const Desktop = ({ activeUser }) => {
           <Program
             key={pId}
             app={programsData[pId]}
-            zIndex={windows.pIds[pId] || 100}
-            onClickWindow={e => onClickProgramWindow(pId)} />
+            isMinimized={minimized[pId]}
+            zIndex={windows.pId === pId ? windows.maxZIndex : 'auto'}
+            onMinimize={pId => onToggleMinimize(pId, true)}
+            onTerminate={() => dispatch(terminateProgram(pId))}
+            onClickWindow={onClickProgramWindow} />
         ))
       }
 
-      <StartMenu user={activeUser} hide={!startMenu} />
+      <StartMenu
+        user={activeUser}
+        hide={!startMenu}
+        onProgramClick={app => onStartNewProgram(app)} />
+
       <TaskBar
         apps={taskbarAppsData}
         programs={appsInstances}
-        onIconClick={app => dispatch(startNewProgram(app))}
-        onMindowsClick={() => toggleStartMenu(!startMenu)} />
+        programsData={programsData}
+        onInstanceClick={pId => onSelectFromTaskBar(pId)}
+        onIconClick={app => onStartNewProgram(app)}
+        onMindowsClick={() => toggleStartMenu(!startMenu)}
+        onCloseInstance={(pId) => dispatch(terminateProgram(pId))} />
     </div>
   )
 

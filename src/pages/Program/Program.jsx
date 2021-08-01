@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useRef, useState } from 'react';
 import Draggable from 'react-draggable';
 import { useSelector } from 'react-redux';
@@ -9,11 +10,15 @@ const leftOffset = w => (windowWidth - w) * .25;
 const topOffset = h => (windowHeight - h) * .5;
 const defaultHeight = '480px', defaultWidth = '640px';
 
-const Program = (props) => {
+const Program = React.memo((props) => {
 
   const app = props.app;
   const initWindowHeight = defaultHeight, initWindowWidth = defaultWidth;
   const programRef = useRef(null);
+
+  // bring the program to foreground on componentDidMount
+  useEffect(() => props.onClickWindow(app.pId), []);
+
   const [dimensions, updateDimensions] = useState({
     delta: {
       x: leftOffset(initWindowWidth),
@@ -23,8 +28,9 @@ const Program = (props) => {
     defaultStyle: { height: initWindowHeight, width: initWindowWidth },
     style: { height: initWindowHeight, width: initWindowWidth },
     isMaximized: false,
-    isMinimized: false,
   });
+
+  console.log(app.id, 'Updated');
 
   const handleDrag = (e, ui) => {
     const { x, y } = dimensions.delta;
@@ -62,24 +68,34 @@ const Program = (props) => {
           : null
       }>
 
-      <div className='Program'
-        style={{ ...dimensions.style, zIndex: props.zIndex }}
-        ref={programRef}
-        onClick={props.onClickWindow}>
+        <div className='Program'
+          style={{
+            ...dimensions.style,
+            zIndex: props.zIndex,
+            display: props.isMinimized ? 'none' : 'flex'
+          }}
+          ref={programRef}
+          onClick={() => props.onClickWindow(app.pId)}>
 
-        <TitleBar
-          app={app}
-          programId={'randomString'}
-          title={'Mindows Explorer'}
-          isMaximized={dimensions.isMaximized}
-          onMinimize={() => console.log('Minimized')}
-          onMaximize={maximize}
-          onRestore={restore}
-          onTerminate={() => console.log('Terminate')} />
-      </div>
+          <TitleBar
+            app={app}
+            programId={app.pId}
+            title={app.title}
+            isMaximized={dimensions.isMaximized}
+            onMinimize={() => props.onMinimize(app.pId)}
+            onMaximize={maximize}
+            onRestore={restore}
+            onTerminate={() => props.onTerminate(app.pId)} />
+        </div>
     </Draggable>
   );
-
-};
+}, (prevProps, nextProps) => {
+  return (
+    // in case minimized state is same, it should be in the background or foreground in prev and new state
+    prevProps.isMinimized === nextProps.isMinimized && (
+      (prevProps.zIndex === 'auto' && nextProps.zIndex === 'auto')
+      || (prevProps.zIndex !== 'auto' && nextProps.zIndex !== 'auto'))
+  );
+});
 
 export default Program;

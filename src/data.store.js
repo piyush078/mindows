@@ -36,8 +36,8 @@ export const InstalledApps = {
     icon: FcCalculator,
   },
   calendar: {
-    id: 'calender',
-    name: 'Calender',
+    id: 'calendar',
+    name: 'Calendar',
     icon: FcCalendar,
   },
   fsexplorer: {
@@ -49,5 +49,10 @@ export const InstalledApps = {
     id: 'notepad',
     name: 'Notepad',
     icon: FcDocument,
+    config: {
+      initTitle: 'Untitled - Notepad',
+      initWindowWidth: '640px',
+      initWindowHeight: '480px',
+    }
   }
 };

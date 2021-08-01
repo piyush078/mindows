@@ -1,5 +1,5 @@
 import { GrWindows } from 'react-icons/gr';
-import { VscRss, VscSearch, VscTriangleUp, VscUnmute } from 'react-icons/vsc';
+import { VscClose, VscRss, VscSearch, VscTriangleUp, VscUnmute } from 'react-icons/vsc';
 import { FaBatteryFull, FaCommentAlt } from 'react-icons/fa';
 
 import Clock from '../Clock/Clock';
@@ -7,7 +7,44 @@ import { Strings } from '../../data.store';
 import './TaskBar.scss';
 
 
-const TaskBar = ({ apps, programs, onIconClick, onMindowsClick }) => {
+const TaskBarAppInstances = ({ apps, programs, data, onIconClick, onInstanceClick, onCloseInstance }) => {
+
+  const Instances = ({ instances }) => instances.map((instance, key) => (
+    <div className='TaskBar-app-instances-item' key={key}
+      onClick={() => onInstanceClick(instance)}>
+      <span className='TaskBar-app-instances-item-title'>
+        {data[instance].title}
+      </span>
+      <span className='TaskBar-app-instances-item-close' onClick={() => onCloseInstance(instance)}>
+        <VscClose />
+      </span>
+    </div>
+  ));
+
+  const App = ({ app, onClick }) => {
+    const instances = programs[app.id] || [];
+    return (     
+      <div title={app.name}
+        className={'TaskBar-app' + (instances.length ? ' TaskBar-app-running' : '')}
+        onClick={() => instances.length ? true : onClick(app)}>
+        { app.icon() }
+        <div className='TaskBar-app-instances'>
+          <Instances instances={programs[app.id] || []} />
+        </div>
+      </div>
+    )
+  };
+
+  return apps.map((app, i) => (
+    <App key={i} app={app} onClick={onIconClick} />
+  ));
+};
+
+
+
+const TaskBar = ({
+  apps, programs, programsData, onIconClick, onMindowsClick, onInstanceClick, onCloseInstance
+}) => {
   return (
     <div className='TaskBar'>
       <div className='TaskBar-left'>
@@ -21,18 +58,16 @@ const TaskBar = ({ apps, programs, onIconClick, onMindowsClick }) => {
           </div>
           <input type='text' required />
         </div>
-        {
-          apps.map((app, i) => (
-            <div key={i}
-              className='TaskBar-app'
-              title={app.name}
-              onClick={() => onIconClick(app)}>
-              {app.icon()}
-              <span>{programs[app.id]?.length || 0}</span>
-            </div>
-          ))
-        }
+
+        <TaskBarAppInstances
+          apps={apps}
+          programs={programs}
+          data={programsData}
+          onIconClick={onIconClick}
+          onInstanceClick={onInstanceClick}
+          onCloseInstance={onCloseInstance} />
       </div>
+
       <div className='TaskBar-right'>
         <div className='TaskBar-App'><VscTriangleUp /></div>
         <div className='TaskBar-App'><VscRss /></div>

@@ -1,5 +1,5 @@
 import MemoryActionTypes from './memory.types';
-import { loadProgram, updateAppsInstances, updateProgramsData } from './memory.utils';
+import { loadProgram, removeAppInstance, removeProgram, updateAppsInstances, updateProgramsData } from './memory.utils';
 
 const initialState = {
   appsInstances: {},
@@ -14,6 +14,15 @@ const MemoryReducer = (state = initialState, action) => {
         ...state,
         programsData: updateProgramsData(state.programsData, newProgram),
         appsInstances: updateAppsInstances(state.appsInstances, newProgram)
+      };
+
+    case MemoryActionTypes.TERMINATE_PROGRAM:
+      const pId = action.payload;
+      const id = state.programsData[pId].id;
+      return {
+        ...state,
+        programsData: removeProgram(state.programsData, pId),
+        appsInstances: removeAppInstance(state.appsInstances, id, pId)
       };
 
     default:

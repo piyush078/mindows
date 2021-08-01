@@ -65,10 +65,11 @@ const StartMenuDrawer = React.memo(({ user }) => {
 }, () => true);
 
 
-const StartMenuApps = React.memo(() => {
+const StartMenuApps = React.memo(({ onClick }) => {
 
   const Apps = ({ apps, category }) => apps.map((app, i) => (
     <div key={category + i.toString()}
+      onClick={() => onClick(app)}
       className='StartMenu-apps-category-list-item'>
       <div className='StartMenu-apps-category-list-item-icon'>
         {app.icon()}
@@ -155,19 +156,22 @@ const StartMenuPromotions = React.memo((_) => {
       
     </div>
   )
-}, (_, nextProps) => nextProps.hide);
+}, (prevProps, nextProps) => prevProps.hide === nextProps.hide && nextProps.hide);
 
 
 
-const StartMenu = ({ user, hide }) => {
+const StartMenu = React.memo(({ user, hide, onProgramClick }) => {
 
   return (
     <div className='StartMenu' style={{ bottom: hide ? '-512px' : '48px' }}>
       <StartMenuDrawer user={user} />
-      <StartMenuApps />
+      <StartMenuApps onClick={onProgramClick} />
       <StartMenuPromotions hide={hide} />
     </div>
   );
-};
+}, (prevProps, nextProps) => (
+  prevProps.hide === nextProps.hide
+));
+
 
 export default StartMenu;

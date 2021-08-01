@@ -21,6 +21,7 @@ $startMenuPromotionsSmallWidth: $startMenuPromotionsWidth / 6;
   background: $taskBarBg;
   color: $taskBarFg;
   transition: bottom 0.5s ease, width 0.5s ease;
+  z-index: 9999;
 
   &-account[active='false'] {
     width: 48px;
@@ -89,7 +90,10 @@ $startMenuPromotionsSmallWidth: $startMenuPromotionsWidth / 6;
         &-item {
           display: flex;
           align-items: center;
-          margin-bottom: 4px;
+          cursor: default;
+          margin-right: 48px;
+          padding: 2px;
+          border: 2px solid transparent;
 
           &-icon {
             padding: 8px;
@@ -104,6 +108,10 @@ $startMenuPromotionsSmallWidth: $startMenuPromotionsWidth / 6;
           &-label {
             margin-left: 8px;
           }
+        }
+
+        &-item:active {
+          border: 2px solid white;
         }
       }
     }
