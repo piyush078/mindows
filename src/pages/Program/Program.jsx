@@ -10,10 +10,14 @@ const leftOffset = w => (windowWidth - w) * .25;
 const topOffset = h => (windowHeight - h) * .5;
 const defaultHeight = '480px', defaultWidth = '640px';
 
+
+const ProgramComponent = React.memo(({ component, ...props}) => component(props), () => true);
+
 const Program = React.memo((props) => {
 
   const app = props.app;
-  const initWindowHeight = defaultHeight, initWindowWidth = defaultWidth;
+  const initWindowHeight = app.config?.initWindowHeight || defaultHeight,
+        initWindowWidth = app.config?.initWindowWidth || defaultWidth;
   const programRef = useRef(null);
 
   // bring the program to foreground on componentDidMount
@@ -29,8 +33,6 @@ const Program = React.memo((props) => {
     style: { height: initWindowHeight, width: initWindowWidth },
     isMaximized: false,
   });
-
-  console.log(app.id, 'Updated');
 
   const handleDrag = (e, ui) => {
     const { x, y } = dimensions.delta;
@@ -86,6 +88,18 @@ const Program = React.memo((props) => {
             onMaximize={maximize}
             onRestore={restore}
             onTerminate={() => props.onTerminate(app.pId)} />
+
+          <div className='Program-component'>
+            {
+              <ProgramComponent
+                component={app.component}
+                updateTitle={(newTitle) => console.log('Title to be updated to', newTitle)}
+                writeToFS={(path, content) => console.log('To be saved in path')}
+                readFromFs={(path) => console.log('To be read from path')}
+              />
+            }
+          </div>
+
         </div>
     </Draggable>
   );

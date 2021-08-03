@@ -1,4 +1,6 @@
 import { FcCalculator, FcCalendar, FcDocument, FcFolder } from 'react-icons/fc';
+import Explorer from './softwares/Explorer/Explorer';
+import Notepad from './softwares/Notepad/Notepad';
 
 export const Wallpapers = {
   list: [
@@ -24,8 +26,8 @@ export const Strings = {
   SIGNUP_PASSWORD_VIEW_TITLE: 'Create a super memorable password',
   SIGNUP_PASSWORD_VIEW_SUBTITLE: "Make sure to pick something you'll absolutely remember",
   SUCCESSFUL_LOGIN_WELCOME_TEXT: 'Welcome',
-
   TASKBAR_SEARCH_PLACEHOLDER: 'Type here to search',
+  PC_FILESYSTEM_ROOT_NAME: 'MY PC',
 };
 
 
@@ -44,14 +46,16 @@ export const InstalledApps = {
     id: 'fsexplorer',
     name: 'Mindows Explorer',
     icon: FcFolder,
+    component: Explorer,
   },
   notepad: {
     id: 'notepad',
     name: 'Notepad',
     icon: FcDocument,
+    component: Notepad,
     config: {
       initTitle: 'Untitled - Notepad',
-      initWindowWidth: '640px',
+      initWindowWidth: '480px',
       initWindowHeight: '480px',
     }
   }

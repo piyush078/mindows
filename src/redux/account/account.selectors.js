@@ -7,3 +7,10 @@ export const selectAccountSettings = store => {
 export const selectTaskBarApps = store => {
   return accountState(store).taskbarApps;
 };
+
+export const selectDirectoryItems = id => store => {
+  const fs = accountState(store).filesystem;
+  return fs[id]
+    ? fs[id].children.map(child => fs[child].node)
+    : [];
+};

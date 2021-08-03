@@ -1,8 +1,16 @@
+@use '../../scss/mixins';
+
 .Program {
   position: absolute;
   top: 10%;
   left: 30%;
   background: white;
+  flex-direction: column;
   box-shadow: 0px 0px 5px 2px #2d2d2d;
   transition: top 0.3s ease-out, right 0.3s ease-out, bottom 0.3s ease-out, left 0.3s ease-out;
+
+  &-component {
+    @include mixins.fullscreen;
+    position: relative;
+  }
 }

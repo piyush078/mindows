@@ -16,12 +16,13 @@
     padding: 0 8px;
 
     &-logo {
-      font-size: 24px;
+      font-size: 20px;
     }
 
     &-title {
-      @include mixins.fonttype('semibold');
+      @include mixins.fonttype;
       margin-left: 8px;
+      font-size: 13px;
     }
   }
 
@@ -34,7 +35,7 @@
     > * {
       height: 100%;
       width: $titleBarHeight;
-      font-size: 1.1em;
+      font-size: 1.0em;
       padding: .75em;
     }
 

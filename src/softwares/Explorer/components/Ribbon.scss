@@ -1,0 +1,54 @@
+.Explorer-ribbon {
+  display: flex;
+  width: 100%;
+  align-content: center;
+  background: #e9ecee;
+  padding: 4px 0;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  cursor: default;
+  position: relative;
+
+  &-category {
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid lightgray;
+    
+    &-buttons {
+      display: flex;
+    }
+    
+    &-label {
+      text-align: center;
+      color: rgba(0,0,0,0.8);
+    }
+    
+    &-item {
+      width: 56px;
+      padding: 0 16px;
+      height: 7em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      
+      &-icon {
+        font-size: 2em;
+        
+        & > * {
+          height: 1.5em;
+        }
+      }
+    }
+  }
+}
+
+.Explorer-ribbon[disabled=""]::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(233,236,238,.3);
+}

@@ -1,0 +1,19 @@
+@use '../../scss/mixins';
+
+.Notepad {
+  @include mixins.fullscreen;
+  position: relative;
+
+  &-content {
+    @include mixins.fullscreen;
+    @include mixins.fonttype;
+    padding: 8px;
+    resize: none !important;
+    outline: none !important;
+    border: 0 !important;
+  }
+
+  &-content:focus {
+    outline: none !important;
+  }
+}
