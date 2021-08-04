@@ -11,6 +11,11 @@ export const getAccountFromStorage = (user) => {
   return data ? JSON.parse(data) : {};
 };
 
+export const saveAccountInStorage = (user, state) => {
+  const username = getUsername(user);
+  localStorage.setItem(storageKeys.ACCOUNT_DATA(username), JSON.stringify(state));
+};
+
 export const updateNodeChildren = (parentNode, childId) => {
   const children = parentNode.children.concat(childId);
   return { ...parentNode, children: children };
