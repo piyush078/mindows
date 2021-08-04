@@ -27,3 +27,13 @@ export const unlinkDirectoryItems = (path, ids) => ({
   type: AccountActionTypes.DELETE_DIR_ITEM,
   payload: { ids: ids, path: path }
 });
+
+export const copyDirectoryItems = (toPath, itemIds) => ({
+  type: AccountActionTypes.COPY_DIR_ITEM,
+  payload: { toPath: toPath, ids: itemIds }
+});
+
+export const moveDirectoryItems = (toPath, itemIds) => ({
+  type: AccountActionTypes.MOVE_DIR_ITEM,
+  payload: { toPath: toPath, ids: itemIds }
+});

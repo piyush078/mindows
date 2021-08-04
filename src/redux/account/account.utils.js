@@ -16,15 +16,13 @@ export const saveAccountInStorage = (user, state) => {
   localStorage.setItem(storageKeys.ACCOUNT_DATA(username), JSON.stringify(state));
 };
 
-export const appendChild = (parentNode, childId) => {
-  const children = parentNode.children.concat(childId);
-  return { ...parentNode, children: children };
-};
-
-export const updateFs = (fs, parentNode, childNode) => {
+export const linkNodes = (fs, parentNode, childNodes) => {
   const newFs = { ...fs };
-  newFs[parentNode.node.id] = parentNode;
-  newFs[childNode.node.id] = childNode;
+  const newChildren = [...parentNode.children].concat(childNodes.map(node => node.node.id));
+  newFs[parentNode.node.id] = { ...parentNode, children: newChildren };
+  childNodes.forEach(node => {
+    newFs[node.node.id] = node;
+  });
   return newFs;
 };
 
@@ -43,3 +41,16 @@ export const unlinkNodes = (fs, parentNode, ids) => {
   ids.forEach(id => delete newFs[id]);
   return newFs;
 };
+
+export const copyNodes = (fs, childNodes, toParentNode) => {
+  return linkNodes(fs, toParentNode, childNodes);
+};
+
+export const moveNodes = (fs, childNodes, fromParentNode, toParentNode) => {
+  return linkNodes(
+    unlinkNodes(
+      fs, fromParentNode, childNodes.map(node => node.node.id)),
+    toParentNode,
+    childNodes
+  );
+}

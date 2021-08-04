@@ -1,5 +1,5 @@
 import AccountActionTypes from './account.types';
-import { renameNodes, getAccountFromStorage, appendChild, updateFs, unlinkNodes } from './account.utils';
+import { renameNodes, getAccountFromStorage, unlinkNodes, linkNodes, copyNodes, moveNodes } from './account.utils';
 import Node from './account.fs.js';
 import { Wallpapers } from '../../data.store';
 
@@ -25,9 +25,8 @@ const AccountReducer = (state = initialState, action) => {
 
     case AccountActionTypes.CREATE_NEW_DIR_ITEM: {
       const item = action.payload;
-      const newItem = Node(item.name, item.isDir, item.path);
-      const parent = appendChild(state.filesystem[item.path], newItem.node.id);
-      const newFs = updateFs(state.filesystem, parent, newItem);
+      const newNode = Node(item.name, item.isDir, item.path);
+      const newFs = linkNodes(state.filesystem, state.filesystem[item.path], [newNode]);
       return { ...state, filesystem: newFs };
     }
 
@@ -41,8 +40,33 @@ const AccountReducer = (state = initialState, action) => {
     case AccountActionTypes.DELETE_DIR_ITEM: {
       const parent = action.payload.path;
       const idsToDelete = action.payload.ids;
-      console.log(parent, idsToDelete)
       const newFs = unlinkNodes(state.filesystem, state.filesystem[parent], idsToDelete);
+      return { ...state, filesystem: newFs };
+    }
+
+    case AccountActionTypes.COPY_DIR_ITEM: {
+      const toPath = action.payload.toPath;
+      const idsToCopy = action.payload.ids;
+      const nodesToCopy = idsToCopy.map(id => state.filesystem[id]);
+      const newFs = copyNodes(
+        state.filesystem,
+        nodesToCopy.map(node => Node(node.node.name, node.node.isDir, toPath)),
+        state.filesystem[toPath]
+      );
+      return { ...state, filesystem: newFs };
+    }
+
+    case AccountActionTypes.MOVE_DIR_ITEM: {
+      const toPath = action.payload.toPath;
+      const idsToMove = action.payload.ids;
+      const fromPath = state.filesystem[idsToMove[0]].parent;
+      const nodesToMove = idsToMove.map(id => state.filesystem[id]);
+      const newFs = moveNodes(
+        state.filesystem, 
+        nodesToMove,
+        state.filesystem[fromPath],
+        state.filesystem[toPath]
+      );
       return { ...state, filesystem: newFs };
     }
 

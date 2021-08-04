@@ -42,6 +42,7 @@
       flex-direction: column;
       align-items: center;
       text-align: center;
+      position: relative;
       
       &-icon {
         font-size: 2em;
@@ -50,6 +51,10 @@
           height: 1.5em;
         }
       }
+    }
+
+    &-item[disabled=""]::after {
+      @extend .disabled;
     }
   }
 

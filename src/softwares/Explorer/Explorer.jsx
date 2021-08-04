@@ -6,7 +6,7 @@ import ExplorerRibbon from './components/Ribbon';
 import ExplorerSidebar from './components/Sidebar';
 import { selectDirectoryItems } from '../../redux/account/account.selectors';
 import './Explorer.scss';
-import { createNewDirectoryItem, renameDirectoryItems, unlinkDirectoryItems } from '../../redux/account/account.actions';
+import { copyDirectoryItems, createNewDirectoryItem, moveDirectoryItems, renameDirectoryItems, unlinkDirectoryItems } from '../../redux/account/account.actions';
 import { FcDocument } from 'react-icons/fc';
 
 const rootDir = '_root';
@@ -21,6 +21,7 @@ const ItemIcon = ({ isDir }) => (
 const DirectoryView = ({
   items,
   selectedItems,
+  clipboard,
   driveIcon,
   onSelectItem,
   onDoubleClick,
@@ -64,6 +65,10 @@ const DirectoryView = ({
               'Explorer-fs-item' + (
                 selectedItems.includes(item.id)
                   ? ' Explorer-fs-item-selected'
+                  : ''
+              ) + (
+                clipboard.includes(item.id)
+                  ? ' Explorer-fs-item-cut'
                   : ''
               )
             }
@@ -114,6 +119,7 @@ const Explorer = () => {
   const [chosenCategory, chooseCategory] = useState(rootDir);
   const [createMode, updateCreateMode] = useState(false);
   const [renameMode, updateRenameMode] = useState(false);
+  const [clipboard, updateClipboard] = useState({ mode: -1, items: [] });
 
   const onGoToDirectory = (id) => updateCurrentDir(id) || updateSelected([]);
   const onSelectItem = (id) => updateSelected([id]);
@@ -138,16 +144,31 @@ const Explorer = () => {
     dispatch(renameDirectoryItems(selectedItems, newName));
   }
 
+  // on paste the copy/cut items
+  const onPasteItems = () => {
+    if(clipboard.mode === 0) {
+      dispatch(moveDirectoryItems(currentDir, clipboard.items));
+      updateClipboard({ mode: -1, items: [] });
+    } else {
+      dispatch(copyDirectoryItems(currentDir, clipboard.items));
+    }
+  }
+
   return (
     <div className='Explorer'>
 
       <ExplorerRibbon 
         disableAll={currentDir === rootDir}
-        currentDir={currentDir}
         selectedItems={selectedItems}
+        isClipboardEmpty={clipboard.items.length === 0}
         onCreateItem={(isDir) => updateCreateMode(isDir ? 'dir' : 'file') || updateSelected(['_new'])}
         onRenameItem={() => updateRenameMode(true)}
         onDeleteItem={onDeleteItem}
+        onSelectAll={() => updateSelected(directoryData.map(item => item.id))}
+        onSelectNone={() => updateSelected([])}
+        onCopyItems={() => updateClipboard({ mode: 1, items: [...selectedItems] })}
+        onCutItems={() => updateClipboard({ mode: 0, items: [...selectedItems] })}
+        onPasteItems={onPasteItems}
       />
 
       <div className='Explorer-viewport'>
@@ -165,6 +186,7 @@ const Explorer = () => {
             <DirectoryView
               items={directoryData}
               selectedItems={selectedItems}
+              clipboard={!clipboard.mode ? clipboard.items : []}
               onDoubleClick={onGoToDirectory}
               onSelectItem={onSelectItem}
               driveIcon={currentDir === rootDir}
