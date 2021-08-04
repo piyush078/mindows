@@ -6,7 +6,7 @@ import ExplorerRibbon from './components/Ribbon';
 import ExplorerSidebar from './components/Sidebar';
 import { selectDirectoryItems } from '../../redux/account/account.selectors';
 import './Explorer.scss';
-import { createNewDirectoryItem } from '../../redux/account/account.actions';
+import { createNewDirectoryItem, renameDirectoryItems, unlinkDirectoryItems } from '../../redux/account/account.actions';
 import { FcDocument } from 'react-icons/fc';
 
 const rootDir = '_root';
@@ -19,61 +19,83 @@ const ItemIcon = ({ isDir }) => (
 
 
 const DirectoryView = ({
-  selectedItems,
   items,
-  onDoubleClickDir,
-  onSelectItem,
+  selectedItems,
   driveIcon,
-  createItemMode,
-  onCreateNewFolder
+  onSelectItem,
+  onDoubleClick,
+  createMode,
+  renameMode,
+  onCreateItem,
+  onRenameItem,
+  onCancelRename
 }) => {
 
-  const [itemName, updateItemName] = useState('');
-  const inputref = useRef(null);
+  const [newName, updateNewName] = useState('');
+  const inputRef = useRef(null);
   const sortItems = () => dirItems.sort((a, b) => a.name > b.name);
+  const onDoneRename = (newName) => createMode ? onCreateItem(newName) : onRenameItem(newName);
 
   const dirItems = items
-    .concat(createItemMode
+    .concat(createMode
       ? {
         id: '_new',
-        name: itemName,
-        isDir: createItemMode === 'dir'
-      }
-      : []);
+        name: newName,
+        isDir: createMode === 'dir'
+      } : []);
 
-  useEffect(sortItems, [items]);
   useEffect(() => {
-    if(createItemMode) {
-      updateItemName(createItemMode === 'dir' ? 'New Folder' : 'New Document');
-      inputref.current.focus();
+    if(createMode) {
+      updateNewName(createMode === 'dir' ? 'New Folder' : 'New Document');
+      inputRef.current.focus();
+
+    } else if(renameMode) {
+      updateNewName(dirItems.filter(item => item.id === selectedItems[0])[0].name);
+      inputRef.current.focus();
     }
-  }, [createItemMode]);
+  }, [createMode, renameMode]);
 
   return (
     <Fragment>
       {
         dirItems.map((item, i) => (
           <div key={i}
-            className={'Explorer-fs-item' + (selectedItems.includes(item.id) ? ' Explorer-fs-item-selected' : '')}
+            className={
+              'Explorer-fs-item' + (
+                selectedItems.includes(item.id)
+                  ? ' Explorer-fs-item-selected'
+                  : ''
+              )
+            }
             onClick={() => onSelectItem(item.id)}
-            onDoubleClick={() => item.isDir ? onDoubleClickDir(item.id) : true}>
+            onDoubleClick={() => item.isDir ? onDoubleClick(item.id) : true}>
+
             <span>
-              {driveIcon ? <FiHardDrive /> : <ItemIcon isDir={item.isDir} />}
+              {
+                driveIcon
+                  ? <FiHardDrive />
+                  : <ItemIcon isDir={item.isDir} />
+              }
             </span>
-            <span className={item.id === '_new' ? 'Explorer-fs-item-hidden' : ''}>
-              {item.name}
+            <span
+              className={
+                (item.id === '_new' || (selectedItems.includes(item.id) && renameMode))
+                  ? 'Explorer-fs-item-hidden'
+                  : ''
+              }>
+              {item.name}{item.extension ? '.' + item.extension : ''}
             </span>
 
             {
-              item.id === '_new'
+              (item.id === '_new' || (selectedItems.includes(item.id) && renameMode))
                 && <input
                   type='text'
                   className='Explorer-fs-item-pseudo-name'
-                  ref={inputref}
-                  value={itemName}
-                  onChange={e => updateItemName(e.target.value)}
-                  onKeyUp={e => e.key === 'Enter' && onCreateNewFolder(itemName)}
-                  onBlur={() => onCreateNewFolder(itemName)} />
+                  ref={inputRef}
+                  value={newName}
+                  onChange={e => updateNewName(e.target.value)}
+                  onKeyUp={e => e.key === 'Enter' && onDoneRename(newName)}
+                  onBlur={() => onCancelRename(item.name)} />
             }
           </div>
         ))
@@ -88,15 +110,32 @@ const Explorer = () => {
   const dispatch = useDispatch();
   const [currentDir, updateCurrentDir] = useState(rootDir);
   const directoryData = useSelector(selectDirectoryItems(currentDir)) || [];
-  const [selectedItems, updateSelected] = useState([rootDir]);
-  const [createItemMode, updateCreateMode] = useState(false);
+  const [selectedItems, updateSelected] = useState([]);
+  const [chosenCategory, chooseCategory] = useState(rootDir);
+  const [createMode, updateCreateMode] = useState(false);
+  const [renameMode, updateRenameMode] = useState(false);
 
-  const onGoToDirectory = (id) => updateCurrentDir(id);
+  const onGoToDirectory = (id) => updateCurrentDir(id) || updateSelected([]);
   const onSelectItem = (id) => updateSelected([id]);
-  const onCreateNewFolder = (name) => {
-    const isDir = createItemMode === 'dir';
+  const onCancelRename = () => renameMode ? updateRenameMode(false) : updateCreateMode(false);
+
+  // delete selected items
+  const onDeleteItem = () => {
+    dispatch(unlinkDirectoryItems(currentDir, selectedItems));
+    updateSelected([]);
+  };
+  
+  // dispatch to create a new file/folder
+  const onCreateItem = (name) => {
+    const isDir = createMode === 'dir';
     updateCreateMode(false);
     dispatch(createNewDirectoryItem({ name: name, isDir: isDir, path: currentDir }));
+  }
+
+  // dispatch to rename a file/folder
+  const onRenameItem = (newName) => {
+    updateRenameMode(false);
+    dispatch(renameDirectoryItems(selectedItems, newName));
   }
 
   return (
@@ -105,15 +144,18 @@ const Explorer = () => {
       <ExplorerRibbon 
         disableAll={currentDir === rootDir}
         currentDir={currentDir}
-        onCreateNewItem={(isDir) => updateCreateMode(isDir ? 'dir' : 'file')}
+        selectedItems={selectedItems}
+        onCreateItem={(isDir) => updateCreateMode(isDir ? 'dir' : 'file') || updateSelected(['_new'])}
+        onRenameItem={() => updateRenameMode(true)}
+        onDeleteItem={onDeleteItem}
       />
 
       <div className='Explorer-viewport'>
         <ExplorerSidebar
-          selectedItems={selectedItems}
+          selectedItem={chosenCategory}
           rootDirectoryData={directoryData}
           onGoToDirectory={onGoToDirectory}
-          onSelectItem={onSelectItem}
+          onSelectItem={(id) => chooseCategory(id)}
         />
 
         <div className='Explorer-fs'>
@@ -123,11 +165,14 @@ const Explorer = () => {
             <DirectoryView
               items={directoryData}
               selectedItems={selectedItems}
-              onDoubleClickDir={onGoToDirectory}
+              onDoubleClick={onGoToDirectory}
               onSelectItem={onSelectItem}
               driveIcon={currentDir === rootDir}
-              createItemMode={createItemMode}
-              onCreateNewFolder={onCreateNewFolder}
+              createMode={createMode}
+              onCreateItem={onCreateItem}
+              onCancelRename={onCancelRename}
+              renameMode={renameMode}
+              onRenameItem={onRenameItem}
             />
           </div>
         </div>

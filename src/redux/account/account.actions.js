@@ -17,3 +17,13 @@ export const createNewDirectoryItem = (item) => ({
   type: AccountActionTypes.CREATE_NEW_DIR_ITEM,
   payload: item
 });
+
+export const renameDirectoryItems = (ids, newName) => ({
+  type: AccountActionTypes.RENAME_DIR_ITEM,
+  payload: { items: ids, newName: newName }
+});
+
+export const unlinkDirectoryItems = (path, ids) => ({
+  type: AccountActionTypes.DELETE_DIR_ITEM,
+  payload: { ids: ids, path: path }
+});

@@ -6,7 +6,7 @@ import './Sidebar.scss';
 
 
 const ExplorerSidebar = React.memo(({
-  selectedItems, rootDirectoryData, onSelectItem, onGoToDirectory
+  selectedItem, rootDirectoryData, onSelectItem, onGoToDirectory
 }) => {
 
   const [directoryData, updateDirectoryData] = useState([]);
@@ -15,11 +15,13 @@ const ExplorerSidebar = React.memo(({
   const SideNavbarItem = ({ item }) => (
     <div
       className={'Explorer-sidebar-item' + (
-        selectedItems.includes(item.id) ? ' Explorer-item-selected' : '')}
+        selectedItem === item.id ? ' Explorer-item-selected' : '')
+      }
       onClick={() => onGoToDirectory(item.id) || onSelectItem(item.id)}>
 
       <span><FiHardDrive /></span>
       <span>{item.name}</span>
+
     </div>
   );
 
@@ -27,7 +29,8 @@ const ExplorerSidebar = React.memo(({
     <div className='Explorer-sidebar'>
       <div
         className={'Explorer-sidebar-item' + (
-          selectedItems.includes('_root') ? ' Explorer-item-selected' : '')}
+          selectedItem === '_root' ? ' Explorer-item-selected' : '')
+        }
         onClick={() => onGoToDirectory('_root') || onSelectItem('_root')}>
         
         <span><MdDesktopWindows /></span>
@@ -39,7 +42,7 @@ const ExplorerSidebar = React.memo(({
     </div>
   );
 }, (prevProps, nextProps) => (
-  prevProps.selectedItems === nextProps.selectedItems
+  prevProps.selectedItem === nextProps.selectedItem
 ));
 
 

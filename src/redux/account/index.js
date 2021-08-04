@@ -1,5 +1,5 @@
 import AccountActionTypes from './account.types';
-import { getAccountFromStorage, updateNodeChildren } from './account.utils';
+import { renameNodes, getAccountFromStorage, appendChild, updateFs, unlinkNodes } from './account.utils';
 import Node from './account.fs.js';
 import { Wallpapers } from '../../data.store';
 
@@ -18,19 +18,33 @@ const initialState = {
 
 const AccountReducer = (state = initialState, action) => {
   switch (action.type) {
-    case AccountActionTypes.LOAD_ACCOUNT:
+    case AccountActionTypes.LOAD_ACCOUNT: {
       const loadedAccount = getAccountFromStorage(action.payload);
       return { ...state, ...loadedAccount };
+    }
 
-    case AccountActionTypes.CREATE_NEW_DIR_ITEM:
+    case AccountActionTypes.CREATE_NEW_DIR_ITEM: {
       const item = action.payload;
       const newItem = Node(item.name, item.isDir, item.path);
-      const parent = updateNodeChildren(state.filesystem[item.path], newItem.node.id);
-      const newFs = { ...state.filesystem };
-      newFs[parent.node.id] = parent;
-      newFs[newItem.node.id] = newItem;
-      console.log(newFs);
+      const parent = appendChild(state.filesystem[item.path], newItem.node.id);
+      const newFs = updateFs(state.filesystem, parent, newItem);
       return { ...state, filesystem: newFs };
+    }
+
+    case AccountActionTypes.RENAME_DIR_ITEM: {
+      const itemsId = action.payload.items;
+      const newName = action.payload.newName;
+      const newFs = renameNodes(state.filesystem, itemsId, newName);
+      return { ...state, filesystem: newFs };
+    }
+
+    case AccountActionTypes.DELETE_DIR_ITEM: {
+      const parent = action.payload.path;
+      const idsToDelete = action.payload.ids;
+      console.log(parent, idsToDelete)
+      const newFs = unlinkNodes(state.filesystem, state.filesystem[parent], idsToDelete);
+      return { ...state, filesystem: newFs };
+    }
 
     default:
       return state;

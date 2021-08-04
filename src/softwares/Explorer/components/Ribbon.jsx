@@ -50,11 +50,10 @@ const CategoryClipboard = () => (
 );
 
 
-const CategoryOrganize = () => (
-  <div className='Explorer-ribbon-category'>
+const CategoryOrganize = ({ onDeleteItem, onRenameItem, ...props }) => (
+  <div className='Explorer-ribbon-category' {...props}>
     <div className='Explorer-ribbon-category-buttons'>
-
-      <div className='Explorer-ribbon-category-item'>
+      <div className='Explorer-ribbon-category-item' onClick={onDeleteItem}>
         <div className='Explorer-ribbon-category-item-icon'>
           <ImCross fill='crimson' />
         </div>
@@ -62,8 +61,7 @@ const CategoryOrganize = () => (
           Delete
         </div>
       </div>
-
-      <div className='Explorer-ribbon-category-item'>
+      <div className='Explorer-ribbon-category-item' onClick={onRenameItem}>
         <div className='Explorer-ribbon-category-item-icon'>
           <BiRename fill='blue' />
         </div>
@@ -71,7 +69,6 @@ const CategoryOrganize = () => (
           Rename
         </div>
       </div>
-
     </div>
     <div className='Explorer-ribbon-category-label'>
       Organize
@@ -157,16 +154,28 @@ const CategorySelect = () => (
 const ExplorerRibbon = ({
   disableAll,
   currentDir,
-  onCreateNewItem,
+  selectedItems,
+  onCreateItem,
+  onRenameItem,
+  onDeleteItem,
 }) => {
+
+  console.log(selectedItems)
 
   return (
     <div className='Explorer-ribbon' disabled={disableAll}>
       <CategoryClipboard />
-      <CategoryOrganize />
+
+      <CategoryOrganize
+        disabled={
+          selectedItems.length === 0
+          || (selectedItems.length === 1 && selectedItems[0] === '_new')
+        }
+        onDeleteItem={onDeleteItem}
+        onRenameItem={onRenameItem} />
 
       <CategoryNew
-        onCreate={(isDir) => onCreateNewItem(isDir)} />
+        onCreate={(isDir) => onCreateItem(isDir)} />
 
       <CategoryOpen />
       <CategorySelect />
