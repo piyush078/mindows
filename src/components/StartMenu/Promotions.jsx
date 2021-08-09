@@ -1,5 +1,15 @@
 import { FcBearish, FcMusic, FcCamera, FcGoogle, FcNews, FcPicture, FcSteam } from 'react-icons/fc';
-import { FaDropbox, FaAmazon, FaChrome, FaFacebookF, FaFirefoxBrowser, FaGithub, FaMicrosoft, FaSkype, FaXbox } from 'react-icons/fa';
+import {
+  FaDropbox,
+  FaAmazon,
+  FaChrome,
+  FaFacebookF,
+  FaFirefoxBrowser,
+  FaGithub,
+  FaMicrosoft,
+  FaSkype,
+  FaXbox,
+} from 'react-icons/fa';
 import { MdMovieCreation } from 'react-icons/md';
 import { WiDaySunny } from 'react-icons/wi';
 import { SiMicrosoftword } from 'react-icons/si';
@@ -13,37 +23,37 @@ const Promotions = [
   {
     icon: FaAmazon,
     text: 'Amazon',
-    action: 'https://www.amazon.com/'
+    action: 'https://www.amazon.com/',
   },
   {
     icon: FaChrome,
     text: 'Google Chrome',
-    action: 'https://www.google.com/intl/en_uk/chrome/'
+    action: 'https://www.google.com/intl/en_uk/chrome/',
   },
   {
     icon: FaDropbox,
     text: 'Dropbox',
-    action: 'https://www.dropbox.com/'
+    action: 'https://www.dropbox.com/',
   },
   {
     icon: FaFacebookF,
     text: 'Facebook',
-    action: 'https://www.facebook.com/'
+    action: 'https://www.facebook.com/',
   },
   {
     icon: FaFirefoxBrowser,
     text: 'Firefox',
-    action: 'https://www.mozilla.org/en-US/firefox/new/'
+    action: 'https://www.mozilla.org/en-US/firefox/new/',
   },
   {
     icon: FaGithub,
     text: 'Mindows',
-    action: 'https://www.github.com/piyush078/mindows'
+    action: 'https://www.github.com/piyush078/mindows',
   },
   {
     icon: FaSkype,
     text: 'Skype',
-    action: 'https://www.skype.com/en/'
+    action: 'https://www.skype.com/en/',
   },
   {
     icon: WiDaySunny,
@@ -53,7 +63,7 @@ const Promotions = [
   {
     icon: SiMicrosoftword,
     text: 'Word',
-    action: 'https://www.microsoft.com/en-in/microsoft-365/business'
+    action: 'https://www.microsoft.com/en-in/microsoft-365/business',
   },
   {
     icon: FcSteam,
@@ -67,7 +77,7 @@ const Promotions = [
   {
     icon: FaMicrosoft,
     text: 'Windows 11',
-    action: 'https://www.microsoft.com/en-in/windows/windows-11'
+    action: 'https://www.microsoft.com/en-in/windows/windows-11',
   },
   {
     icon: FcNews,
@@ -80,7 +90,7 @@ const Promotions = [
   },
   {
     icon: FaXbox,
-    text: 'Xbox'
+    text: 'Xbox',
   },
   {
     icon: FcMusic,
@@ -88,13 +98,13 @@ const Promotions = [
   },
   {
     icon: FcBearish,
-    text: 'Money'
+    text: 'Money',
   },
   {
     icon: FcPicture,
     text: 'Gallery',
-    action: 'https://onedrive.live.com/about/en-us/signin/'
-  }
+    action: 'https://onedrive.live.com/about/en-us/signin/',
+  },
 ];
 
 export default Promotions;

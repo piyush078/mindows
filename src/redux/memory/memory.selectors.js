@@ -1,9 +1,5 @@
-const memoryState = store => store.memory;
+const memoryState = (store) => store.memory;
 
-export const selectAppsInstances = store => {
-  return memoryState(store).appsInstances;
-}
+export const selectAppsInstances = (store) => memoryState(store).appsInstances;
 
-export const selectProgramsData = store => {
-  return memoryState(store).programsData;
-};
+export const selectProgramsData = (store) => memoryState(store).programsData;

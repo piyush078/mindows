@@ -4,130 +4,113 @@ import { AiOutlineUser } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 import { getName } from '../../redux/auth/auth.user';
-import { Strings } from '../../data.store';
+import Strings from '../../config/strings';
 import BootLogo from '../../components/BootLogo/BootLogo';
 import Button from '../../components/Button/Button';
 import './LoginView.scss';
 
-
 const LoginError = ({ error, onCancel }) => (
-  <div className='LoginError'>
+  <div className="LoginError">
     <span>{error.text}</span>
-    <Button
-      onClick={onCancel}
-      classNames={['login-auth-error-button']}
-      text={'OK'} />
+    <Button onClick={onCancel} classNames={['login-auth-error-button']} text="OK" />
   </div>
 );
 
-
 const LoginSuccess = () => (
-  <div className='LoginSuccess'>
-    <BootLogo size='small' />
+  <div className="LoginSuccess">
+    <BootLogo size="small" />
     <span>{Strings.SUCCESSFUL_LOGIN_WELCOME_TEXT}</span>
   </div>
 );
 
-
 const LoginForm = ({ onSubmit }) => {
-
   const [isHiddenPassword, togglePasswordMode] = useState(true);
   const [password, updatePassword] = useState('');
 
   return (
-    <div className='login-fields'>
-
-      {
-        false
-          && <div className='login-fields-username'>
-            <input type='text' placeholder='User name' required />
+    <div className="login-fields">
+      {false && (
+        <div className="login-fields-username">
+          <input type="text" placeholder="User name" required />
         </div>
-      }
+      )}
 
-      <div className='login-fields-password'>
-        <input required
+      <div className="login-fields-password">
+        <input
+          required
           value={password}
-          onChange={e => updatePassword(e.target.value)}
-          onKeyUp={e => e.key === 'Enter' && onSubmit(password)}
+          onChange={(e) => updatePassword(e.target.value)}
+          onKeyUp={(e) => e.key === 'Enter' && onSubmit(password)}
           type={isHiddenPassword ? 'password' : 'text'}
-          placeholder='Password' />
-        
+          placeholder="Password"
+        />
+
         <div
-          className='login-fields-password-eye'
+          className="login-fields-password-eye"
           onMouseDown={() => togglePasswordMode(false)}
-          onMouseUp={() => togglePasswordMode(true)}>
+          onMouseUp={() => togglePasswordMode(true)}
+        >
           <VscEye />
         </div>
 
-        <div className='login-fields-password-arrow'
-          onClick={() => onSubmit(password)}>
+        <div className="login-fields-password-arrow" onClick={() => onSubmit(password)}>
           <VscArrowRight />
         </div>
       </div>
-
     </div>
-  )
+  );
 };
 
-
 const LoginView = ({ users, background, onLogin, authError, authSuccess }) => {
-
   const [selectedUser, changeSelectedUser] = useState(0);
-  const styles = {backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + background + '")'};
+  const styles = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}"/images/${background}")`,
+  };
   const [showError, toggleShowError] = useState(authError);
   useEffect(() => toggleShowError(authError), [authError]);
 
   return (
-    <React.Fragment>
-      <div className='LoginScreen' style={styles}></div>
+    <>
+      <div className="LoginScreen" style={styles} />
       <div className="PseudoLoginScreen">
-
-        <div className='login-form'>
-          <div className='login-pfp'>
+        <div className="login-form">
+          <div className="login-pfp">
             <AiOutlineUser />
           </div>
-          <div className='login-username'>
-            {users[selectedUser].name}
-          </div>
-          {
-            showError
-            ? <LoginError error={authError} onCancel={() => toggleShowError(false)} />
-            : authSuccess
-              ? <LoginSuccess />
-              : <LoginForm onSubmit={(password) => onLogin(selectedUser, password)} />
-          }
-          {
-            !authSuccess
-              && (
-                <Link to='/newaccount' className='new-account-opt'>
-                  {Strings.SIGNUP_LINK_LOGIN_VIEW}
-                </Link>
-              )
-          }
+          <div className="login-username">{users[selectedUser].name}</div>
+          {showError ? (
+            <LoginError error={authError} onCancel={() => toggleShowError(false)} />
+          ) : authSuccess ? (
+            <LoginSuccess />
+          ) : (
+            <LoginForm onSubmit={(password) => onLogin(selectedUser, password)} />
+          )}
+          {!authSuccess && (
+            <Link to="/newaccount" className="new-account-opt">
+              {Strings.SIGNUP_LINK_LOGIN_VIEW}
+            </Link>
+          )}
         </div>
 
-        {
-          !authSuccess && users.length > 1
-            && (
-              <div className='login-users-list'>
-              {
-                users.map((user, ind) => (
-                  <li key={ind}
-                    current={selectedUser === ind ? 1 : 0}
-                    className='login-users-list-item'
-                    onClick={() => changeSelectedUser(ind)}>
-                    <div className='login-users-list-item-pfp'>
-                      <AiOutlineUser />
-                    </div>
-                    <p>{getName(user)}</p>
-                  </li>
-                ))
-              }
-              </div>
-            )
-        }
+        {!authSuccess && users.length > 1 && (
+          <div className="login-users-list">
+            {users.map((user, ind) => (
+              <li
+                key={ind}
+                current={selectedUser === ind ? 1 : 0}
+                className="login-users-list-item"
+                onClick={() => changeSelectedUser(ind)}
+              >
+                <div className="login-users-list-item-pfp">
+                  <AiOutlineUser />
+                </div>
+                <p>{getName(user)}</p>
+              </li>
+            ))}
+          </div>
+        )}
       </div>
-    </React.Fragment>
+    </>
   );
 };
 

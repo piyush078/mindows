@@ -1,7 +1,14 @@
 import AccountActionTypes from './account.types';
-import { renameNodes, getAccountFromStorage, unlinkNodes, linkNodes, copyNodes, moveNodes } from './account.utils';
-import Node from './account.fs.js';
-import { Wallpapers } from '../../data.store';
+import {
+  renameNodes,
+  getAccountFromStorage,
+  unlinkNodes,
+  linkNodes,
+  copyNodes,
+  moveNodes,
+} from './account.utils';
+import Node from './account.fs';
+import Wallpapers from '../../config/wallpapers';
 
 const initialState = {
   settings: {
@@ -9,12 +16,11 @@ const initialState = {
   },
   taskbarApps: ['fsexplorer', 'notepad'],
   filesystem: {
-    '_root': Node('', true, null, ['C:', 'D:'], null, '_root'),
+    _root: Node('', true, null, ['C:', 'D:'], null, '_root'),
     'C:': Node('Local Drive (C:)', true, '_root', [], null, 'C:'),
     'D:': Node('Local Drive (D:)', true, '_root', [], null, 'D:'),
-  }
+  },
 };
-
 
 const AccountReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -32,7 +38,7 @@ const AccountReducer = (state = initialState, action) => {
 
     case AccountActionTypes.RENAME_DIR_ITEM: {
       const itemsId = action.payload.items;
-      const newName = action.payload.newName;
+      const { newName } = action.payload;
       const newFs = renameNodes(state.filesystem, itemsId, newName);
       return { ...state, filesystem: newFs };
     }
@@ -45,24 +51,24 @@ const AccountReducer = (state = initialState, action) => {
     }
 
     case AccountActionTypes.COPY_DIR_ITEM: {
-      const toPath = action.payload.toPath;
+      const { toPath } = action.payload;
       const idsToCopy = action.payload.ids;
-      const nodesToCopy = idsToCopy.map(id => state.filesystem[id]);
+      const nodesToCopy = idsToCopy.map((id) => state.filesystem[id]);
       const newFs = copyNodes(
         state.filesystem,
-        nodesToCopy.map(node => Node(node.node.name, node.node.isDir, toPath)),
+        nodesToCopy.map((node) => Node(node.node.name, node.node.isDir, toPath)),
         state.filesystem[toPath]
       );
       return { ...state, filesystem: newFs };
     }
 
     case AccountActionTypes.MOVE_DIR_ITEM: {
-      const toPath = action.payload.toPath;
+      const { toPath } = action.payload;
       const idsToMove = action.payload.ids;
       const fromPath = state.filesystem[idsToMove[0]].parent;
-      const nodesToMove = idsToMove.map(id => state.filesystem[id]);
+      const nodesToMove = idsToMove.map((id) => state.filesystem[id]);
       const newFs = moveNodes(
-        state.filesystem, 
+        state.filesystem,
         nodesToMove,
         state.filesystem[fromPath],
         state.filesystem[toPath]

@@ -7,7 +7,7 @@ const AccountActionTypes = {
   RENAME_DIR_ITEM: 'RENAME_DIR_ITEM',
   DELETE_DIR_ITEM: 'DELETE_DIR_ITEM',
   COPY_DIR_ITEM: 'COPY_DIR_ITEM',
-  MOVE_DIR_ITEM: 'MOVE_DIR_ITEM'
+  MOVE_DIR_ITEM: 'MOVE_DIR_ITEM',
 };
 
 export default AccountActionTypes;

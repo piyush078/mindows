@@ -6,7 +6,6 @@ const dateOptions = { weekday: 'short', month: 'long', day: 'numeric' };
 const timeOptions = { hour12: true, hour: 'numeric', minute: '2-digit', hour12suffix: true };
 
 const Clock = () => {
-
   const [currentDateTime, updateCurrentDateTime] = useState(new Date());
   const dateTimeFormat = formatDateTime(currentDateTime, dateOptions, timeOptions);
 
@@ -17,9 +16,9 @@ const Clock = () => {
   }, []);
 
   return (
-    <div className='Clock'>
-      <div className='Clock-time'>{dateTimeFormat.time}</div>
-      <div className='Clock-date'>{dateTimeFormat.date}</div>
+    <div className="Clock">
+      <div className="Clock-time">{dateTimeFormat.time}</div>
+      <div className="Clock-date">{dateTimeFormat.date}</div>
     </div>
   );
 };

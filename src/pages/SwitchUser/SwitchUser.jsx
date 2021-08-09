@@ -10,9 +10,7 @@ import { getBootBackgrounds } from '../../redux/boot/boot.actions';
 import LoginView from './LoginView';
 import './SwitchUser.scss';
 
-
 const SwitchUser = ({ users }) => {
-
   const backgrounds = useSelector(selectBootBackgrounds);
   const authError = useSelector(selectAuthError);
   const authSuccess = useSelector(selectAuthSuccess);
@@ -23,7 +21,11 @@ const SwitchUser = ({ users }) => {
 
   useEffect(() => dispatch(getBootBackgrounds()), [dispatch]);
   useEffect(() => {
-    authSuccess && setTimeout(() => history.push('/desktop'), 2000);
+    if (authSuccess) {
+      setTimeout(() => {
+        history.push('/desktop');
+      }, 2000);
+    }
   }, [authSuccess]);
 
   const onLogin = (userIndex, password) => {
@@ -31,25 +33,24 @@ const SwitchUser = ({ users }) => {
   };
 
   return (
-    <React.Fragment>
-      {
-        hasDoneLoading
-          && <LoginView
+    <>
+      {hasDoneLoading && (
+        <LoginView
           users={users}
           onLogin={onLogin}
           authError={authError}
           authSuccess={authSuccess}
-          background={backgrounds.login} /> 
-      }
-      {
-        backgrounds.lock && backgrounds.login
-          && 
-          <LockCover
-            background={backgrounds.lock}
-            autoHide={new URLSearchParams(location.search).get('cover') === 'false'}
-            onDoneLoading={to => setTimeout(() => onDoneLoading(to), 1000)} />
-      }
-    </React.Fragment>
+          background={backgrounds.login}
+        />
+      )}
+      {backgrounds.lock && backgrounds.login && (
+        <LockCover
+          background={backgrounds.lock}
+          autoHide={new URLSearchParams(location.search).get('cover') === 'false'}
+          onDoneLoading={(to) => setTimeout(() => onDoneLoading(to), 1000)}
+        />
+      )}
+    </>
   );
 };
 

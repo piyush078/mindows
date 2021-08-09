@@ -1,5 +1,3 @@
-const bootState = state => state.boot;
+const bootState = (state) => state.boot;
 
-export const selectBootBackgrounds = store => {
-  return bootState(store).backgrounds;
-};
+export const selectBootBackgrounds = (store) => bootState(store).backgrounds;

@@ -5,21 +5,20 @@ import { useHistory } from 'react-router-dom';
 import TaskBar from '../../components/TaskBar/TaskBar';
 import StartMenu from '../../components/StartMenu/StartMenu';
 import Program from '../Program/Program';
-import { InstalledApps } from '../../data.store';
+import InstalledApps from '../../config/apps';
 import { selectAccountSettings, selectTaskBarApps } from '../../redux/account/account.selectors';
-import { selectActiveUser } from '../../redux/auth/auth.selectors';
 import { loadAccount } from '../../redux/account/account.actions';
 import { startNewProgram, terminateProgram } from '../../redux/memory/memory.action';
 import { selectAppsInstances, selectProgramsData } from '../../redux/memory/memory.selectors';
 import './Desktop.scss';
 
-
 const Desktop = ({ activeUser }) => {
-
   const accountSettings = useSelector(selectAccountSettings);
   const dispatch = useDispatch();
   const [startMenu, toggleStartMenu] = useState(false);
-  const style = { backgroundImage: 'url(' + process.env.PUBLIC_URL + '"/images/' + accountSettings.background + '")' };
+  const style = {
+    backgroundImage: `url(${process.env.PUBLIC_URL}"/images/${accountSettings.background}")`,
+  };
   useEffect(() => dispatch(loadAccount(activeUser)), []);
 
   // programsData: { pId_1: programData, pId_2: programData }
@@ -34,22 +33,21 @@ const Desktop = ({ activeUser }) => {
   // taskbarApps: [calculator, calendar, ...]
   const taskbarApps = useSelector(selectTaskBarApps);
   const taskbarAndOpenedApps = taskbarApps.concat(Object.keys(appsInstances));
-  const taskbarAppsData = [...(new Set(taskbarAndOpenedApps))].map(appId => InstalledApps[appId]);
+  const taskbarAppsData = [...new Set(taskbarAndOpenedApps)].map((appId) => InstalledApps[appId]);
 
   // bring activated window/program to the foreground
-  const onClickProgramWindow = (pId) => (
-    updateWindows(
-      ({ maxZIndex }) => ({ maxZIndex: maxZIndex + 1, pId: pId })));
+  const onClickProgramWindow = (pId) =>
+    updateWindows(({ maxZIndex }) => ({ maxZIndex: maxZIndex + 1, pId }));
 
   // add a program to minimized state
   const onToggleMinimize = (pId, to) => {
     const newMinimized = {};
     newMinimized[pId] = to;
     updateMinimized(Object.assign(minimized, newMinimized));
-  }
+  };
 
   // when program is selected from taskbar
-  const onSelectFromTaskBar = pId => {
+  const onSelectFromTaskBar = (pId) => {
     onClickProgramWindow(pId);
     onToggleMinimize(pId, false);
   };
@@ -61,36 +59,36 @@ const Desktop = ({ activeUser }) => {
   };
 
   return (
-    <div className='Desktop' style={style}>
-      {
-        runningPrograms.map((pId) => (
-          <Program
-            key={pId}
-            app={programsData[pId]}
-            isMinimized={minimized[pId]}
-            zIndex={windows.pId === pId ? windows.maxZIndex : 'auto'}
-            onMinimize={pId => onToggleMinimize(pId, true)}
-            onTerminate={() => dispatch(terminateProgram(pId))}
-            onClickWindow={onClickProgramWindow} />
-        ))
-      }
+    <div className="Desktop" style={style}>
+      {runningPrograms.map((pId) => (
+        <Program
+          key={pId}
+          app={programsData[pId]}
+          isMinimized={minimized[pId]}
+          zIndex={windows.pId === pId ? windows.maxZIndex : 'auto'}
+          onMinimize={(_pId) => onToggleMinimize(_pId, true)}
+          onTerminate={() => dispatch(terminateProgram(pId))}
+          onClickWindow={onClickProgramWindow}
+        />
+      ))}
 
       <StartMenu
         user={activeUser}
         hide={!startMenu}
-        onProgramClick={app => onStartNewProgram(app)} />
+        onProgramClick={(app) => onStartNewProgram(app)}
+      />
 
       <TaskBar
         apps={taskbarAppsData}
         programs={appsInstances}
         programsData={programsData}
-        onInstanceClick={pId => onSelectFromTaskBar(pId)}
-        onIconClick={app => onStartNewProgram(app)}
+        onInstanceClick={(pId) => onSelectFromTaskBar(pId)}
+        onIconClick={(app) => onStartNewProgram(app)}
         onMindowsClick={() => toggleStartMenu(!startMenu)}
-        onCloseInstance={(pId) => dispatch(terminateProgram(pId))} />
+        onCloseInstance={(pId) => dispatch(terminateProgram(pId))}
+      />
     </div>
-  )
-
+  );
 };
 
 export default Desktop;

@@ -1,7 +1,7 @@
-import { PublicUser } from "./auth.user";
+import { PublicUser } from './auth.user';
 
 const storageKeys = {
-  PERSISTENT_USERS: 'PERSISTENT_USERS'
+  PERSISTENT_USERS: 'PERSISTENT_USERS',
 };
 
 export const checkForStoredUser = () => {
@@ -15,9 +15,7 @@ export const saveNewUser = (user) => {
   return users;
 };
 
-export const safeguardUser = (users) => {
-  return users ? users.map(user => PublicUser(user)) : users;
-};
+export const safeguardUser = (users) => (users ? users.map((user) => PublicUser(user)) : users);
 
 export const signInUser = (userIndex, password) => {
   const users = checkForStoredUser();
