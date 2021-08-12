@@ -109,7 +109,7 @@ const StartMenuPromotions = React.memo(
 
     const Blocks = ({ list }) =>
       list.map((item, i) => (
-        <a href={item.action ? item.action : '#'} key={i}>
+        <a href={item.action ? item.action : '#'} key={i} tabIndex={-1}>
           <div
             className="StartMenu-promotions-list-item"
             style={{ background: colors[Math.floor(Math.random() * 4)] }}

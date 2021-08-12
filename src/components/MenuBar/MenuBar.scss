@@ -1,0 +1,53 @@
+.Program {
+  &-menubar {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    padding: 0 2px 2px 2px;
+    border-bottom: 1px solid lightgray;
+    
+    &-item {
+      position: relative;
+      padding: 4px 8px;
+      
+      &-submenu {
+        position: absolute;
+        border: 2px solid darkgray;
+        background: white;
+        top: 100%;
+        left: 0;
+        padding: 2px;
+        min-width: 128px;
+        width: max-content;
+        display: none;
+        box-shadow: 2px 2px lightgray;
+        
+        &-item {
+          padding: 0 16px 0 32px;
+          border-radius: 2px;
+          border: 2px solid transparent;
+
+          span {
+            display: block;
+            padding: 4px 8px;
+            border-left: 2px solid blanchedalmond;
+          }
+        }
+
+        &-item:hover {
+          border: 2px solid lightblue;
+        }
+      }
+    }
+
+    &-item:focus {
+      background: lightblue;
+    }
+
+    &-item:focus > &-item-submenu {
+      display: block;
+    }
+  }
+}
