@@ -98,7 +98,7 @@ const StartMenuApps = React.memo(
 );
 
 const StartMenuPromotions = React.memo(
-  (_) => {
+  () => {
     let promotions = [...Promotions];
     for (let i = 0; i < promotions.length - 1; i += 1) {
       const j = Math.floor(Math.random * promotions.length) % promotions.length;
@@ -138,7 +138,7 @@ const StartMenuPromotions = React.memo(
       </div>
     );
   },
-  (prevProps, nextProps) => prevProps.hide === nextProps.hide && nextProps.hide
+  (prevProps, nextProps) => nextProps.hide
 );
 
 const StartMenu = React.memo(

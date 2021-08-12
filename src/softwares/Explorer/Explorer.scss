@@ -36,6 +36,8 @@ $diritemSize: 2em;
     width: 7.2em;
     text-align: center;
     position: relative;
+    border: 2px solid transparent;
+    border-radius: 2px;
 
     & span:first-of-type {
       font-size: $diritemSize;
@@ -65,7 +67,7 @@ $diritemSize: 2em;
  }
 
   &-item-selected {
-    border: 2px solid mediumblue;
+    border: 2px solid mediumorchid;
     background: lightblue;
   }
 

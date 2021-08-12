@@ -27,6 +27,7 @@
     
     &-buttons {
       display: flex;
+      padding: 0 4px;
     }
     
     &-label {
@@ -55,6 +56,10 @@
 
     &-item[disabled=""]::after {
       @extend .disabled;
+    }
+
+    &-item:not([disabled=""]):hover {
+      background: lightblue;
     }
   }
 

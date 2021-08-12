@@ -15,7 +15,7 @@ const InstalledApps = {
   },
   fsexplorer: {
     id: 'fsexplorer',
-    name: 'Mindows Explorer',
+    name: 'File Explorer',
     icon: FcFolder,
     component: Explorer,
   },
