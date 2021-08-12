@@ -91,12 +91,7 @@ const Program = React.memo(
           />
 
           <div className="Program-component">
-            <ProgramComponent
-              component={app.component}
-              updateTitle={(newTitle) => console.log('Title to be updated to', newTitle)}
-              writeToFS={(path, content) => console.log('To be saved in path')}
-              readFromFs={(path) => console.log('To be read from path')}
-            />
+            <ProgramComponent component={app.component} onOpenDocument={props.onOpenDocument} />
           </div>
         </div>
       </Draggable>

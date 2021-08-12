@@ -1,8 +1,8 @@
-export const loadProgram = (program) => {
-  const title = program.config?.initTitle || program.name;
+export const loadProgram = (program, metadata = {}) => {
+  const title = metadata.title || program.config?.initTitle || program.name;
   const uniqueId = new Date().getTime().toString() + Math.floor(Math.random() * 100).toString();
 
-  return { pId: uniqueId, title, ...program };
+  return { pId: uniqueId, ...metadata, title, ...program };
 };
 
 export const updateProgramsData = (data, newProgram) => {

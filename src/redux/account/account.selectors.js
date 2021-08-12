@@ -8,3 +8,5 @@ export const selectDirectoryItems = (id) => (store) => {
   const fs = accountState(store).filesystem;
   return fs[id] ? fs[id].children.map((child) => fs[child].node) : [];
 };
+
+export const selectDefaultApps = (store) => accountState(store).defaultApps;

@@ -6,7 +6,11 @@ import TaskBar from '../../components/TaskBar/TaskBar';
 import StartMenu from '../../components/StartMenu/StartMenu';
 import Program from '../Program/Program';
 import InstalledApps from '../../config/apps';
-import { selectAccountSettings, selectTaskBarApps } from '../../redux/account/account.selectors';
+import {
+  selectAccountSettings,
+  selectDefaultApps,
+  selectTaskBarApps,
+} from '../../redux/account/account.selectors';
 import { loadAccount } from '../../redux/account/account.actions';
 import { startNewProgram, terminateProgram } from '../../redux/memory/memory.action';
 import { selectAppsInstances, selectProgramsData } from '../../redux/memory/memory.selectors';
@@ -35,6 +39,9 @@ const Desktop = ({ activeUser }) => {
   const taskbarAndOpenedApps = taskbarApps.concat(Object.keys(appsInstances));
   const taskbarAppsData = [...new Set(taskbarAndOpenedApps)].map((appId) => InstalledApps[appId]);
 
+  // defaultApps
+  const defaultApps = useSelector(selectDefaultApps);
+
   // bring activated window/program to the foreground
   const onClickProgramWindow = (pId) =>
     updateWindows(({ maxZIndex }) => ({ maxZIndex: maxZIndex + 1, pId }));
@@ -58,6 +65,12 @@ const Desktop = ({ activeUser }) => {
     dispatch(startNewProgram(app));
   };
 
+  // open a document from file explorer
+  const onOpenDocument = (name, ext = '*') => {
+    const app = InstalledApps[defaultApps[ext] || defaultApps['*']];
+    dispatch(startNewProgram(app, { title: name }));
+  };
+
   return (
     <div className="Desktop" style={style}>
       {runningPrograms.map((pId) => (
@@ -69,6 +82,7 @@ const Desktop = ({ activeUser }) => {
           onMinimize={(_pId) => onToggleMinimize(_pId, true)}
           onTerminate={() => dispatch(terminateProgram(pId))}
           onClickWindow={onClickProgramWindow}
+          onOpenDocument={onOpenDocument}
         />
       ))}
 

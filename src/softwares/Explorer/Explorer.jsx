@@ -36,6 +36,7 @@ const DirectoryView = ({
   onCreateItem,
   onRenameItem,
   onCancelRename,
+  onOpenDocument,
 }) => {
   const [newName, updateNewName] = useState('');
   const inputRef = useRef(null);
@@ -72,7 +73,9 @@ const DirectoryView = ({
             selectedItems.includes(item.id) ? ' Explorer-fs-item-selected' : ''
           }${clipboard.includes(item.id) ? ' Explorer-fs-item-cut' : ''}`}
           onClick={() => onSelectItem(item.id)}
-          onDoubleClick={() => (item.isDir ? onDoubleClick(item.id) : true)}
+          onDoubleClick={() =>
+            item.isDir ? onDoubleClick(item.id) : onOpenDocument(item.name, item.extension)
+          }
         >
           <span>{driveIcon ? <FiHardDrive /> : <ItemIcon isDir={item.isDir} />}</span>
           <span
@@ -103,7 +106,8 @@ const DirectoryView = ({
   );
 };
 
-const Explorer = () => {
+const Explorer = (props) => {
+  const { onOpenDocument } = props;
   const dispatch = useDispatch();
   const [currentDir, updateCurrentDir] = useState(rootDir);
   const directoryData = useSelector(selectDirectoryItems(currentDir)) || [];
@@ -186,6 +190,7 @@ const Explorer = () => {
               onCancelRename={onCancelRename}
               renameMode={renameMode}
               onRenameItem={onRenameItem}
+              onOpenDocument={onOpenDocument}
             />
           </div>
         </div>

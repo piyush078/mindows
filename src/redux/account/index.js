@@ -20,6 +20,9 @@ const initialState = {
     'C:': Node('Local Drive (C:)', true, '_root', [], null, 'C:'),
     'D:': Node('Local Drive (D:)', true, '_root', [], null, 'D:'),
   },
+  defaultApps: {
+    '*': 'notepad',
+  },
 };
 
 const AccountReducer = (state = initialState, action) => {

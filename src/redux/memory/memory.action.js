@@ -1,8 +1,8 @@
 import MemoryActionTypes from './memory.types';
 
-export const startNewProgram = (program) => ({
+export const startNewProgram = (app, metadata) => ({
   type: MemoryActionTypes.START_NEW_PROGRAM,
-  payload: program,
+  payload: { app, metadata },
 });
 
 export const terminateProgram = (pId) => ({

@@ -45,8 +45,11 @@ export const unlinkNodes = (fs, parentNode, ids) => {
 
 export const copyNodes = (fs, childNodes, toParentNode) => linkNodes(fs, toParentNode, childNodes);
 
-export const moveNodes = (fs, childNodes, fromParentNode, toParentNode) =>
-  linkNodes(
+export const moveNodes = (fs, childNodes, fromParentNode, toParentNode) => {
+  if (fromParentNode.node.id === toParentNode.node.id) {
+    return { ...fs };
+  }
+  return linkNodes(
     unlinkNodes(
       fs,
       fromParentNode,
@@ -55,3 +58,4 @@ export const moveNodes = (fs, childNodes, fromParentNode, toParentNode) =>
     toParentNode,
     childNodes
   );
+};

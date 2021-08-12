@@ -15,7 +15,8 @@ const initialState = {
 const MemoryReducer = (state = initialState, action) => {
   switch (action.type) {
     case MemoryActionTypes.START_NEW_PROGRAM: {
-      const newProgram = loadProgram(action.payload);
+      const { app, metadata } = action.payload;
+      const newProgram = loadProgram(app, metadata);
       return {
         ...state,
         programsData: updateProgramsData(state.programsData, newProgram),
