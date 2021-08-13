@@ -11,6 +11,7 @@
 
   &-component {
     @include mixins.fullscreen;
+    height: fit-content;
     position: relative;
   }
 }

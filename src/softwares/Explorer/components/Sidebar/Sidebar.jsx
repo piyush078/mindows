@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MdDesktopWindows } from 'react-icons/md';
 import { FiHardDrive } from 'react-icons/fi';
-import Strings from '../../../config/strings';
+import Strings from '../../../../config/strings';
 import './Sidebar.scss';
 
 const Sidebar = React.memo(

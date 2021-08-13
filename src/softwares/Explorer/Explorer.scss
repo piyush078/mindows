@@ -1,5 +1,6 @@
 $fontsize: 12px;
 $diritemSize: 2em;
+@import '../../scss/variables';
 
 .Explorer {
   width: 100%;
@@ -13,10 +14,14 @@ $diritemSize: 2em;
 .Explorer-viewport {
   display: flex;
   flex-direction: row;
-  flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  overflow-y: auto;
+  margin-bottom: 16px;
 
   > * {
-    padding: 16px 0;
+    padding: 8px 0;
   }
 }
 
@@ -32,6 +37,7 @@ $diritemSize: 2em;
     justify-content: center;
     padding: 4px 8px;
     margin-right: 8px;
+    margin-bottom: 4px;
     cursor: default;
     width: 7.2em;
     text-align: center;
@@ -66,9 +72,14 @@ $diritemSize: 2em;
     }
  }
 
+  &-item:hover {
+    background: $itemHoverBg;
+    border: 2px solid $itemBorderColor;
+  }
+
   &-item-selected {
-    border: 2px solid mediumorchid;
-    background: lightblue;
+    border: 2px solid $itemBorderColor;
+    background: $itemFocusBg;
   }
 
   &-item-cut::after {
@@ -84,7 +95,7 @@ $diritemSize: 2em;
 
 .Explorer-directory {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
 }
 

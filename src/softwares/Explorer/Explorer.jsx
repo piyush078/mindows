@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { FiHardDrive } from 'react-icons/fi';
-import { FcDocument } from 'react-icons/fc';
 
-import Ribbon from './components/Ribbon';
-import Sidebar from './components/Sidebar';
+import Ribbon from './components/Ribbon/Ribbon';
+import Sidebar from './components/Sidebar/Sidebar';
+import Directory from './components/Directory/Directory';
 import { selectDirectoryItems } from '../../redux/account/account.selectors';
 import './Explorer.scss';
 import {
@@ -16,95 +15,6 @@ import {
 } from '../../redux/account/account.actions';
 
 const rootDir = '_root';
-
-const ItemIcon = ({ isDir }) =>
-  isDir ? (
-    <img alt="Folder" src={`${process.env.PUBLIC_URL}/icons/MiFolder.svg`} />
-  ) : (
-    <FcDocument fill="white" />
-  );
-
-const DirectoryView = ({
-  items,
-  selectedItems,
-  clipboard,
-  driveIcon,
-  onSelectItem,
-  onDoubleClick,
-  createMode,
-  renameMode,
-  onCreateItem,
-  onRenameItem,
-  onCancelRename,
-  onOpenDocument,
-}) => {
-  const [newName, updateNewName] = useState('');
-  const inputRef = useRef(null);
-  const onDoneRename = (toName) => (createMode ? onCreateItem(toName) : onRenameItem(toName));
-
-  const dirItems = items.concat(
-    createMode
-      ? {
-          id: '_new',
-          name: newName,
-          isDir: createMode === 'dir',
-        }
-      : []
-  );
-  const sortItems = () => dirItems.sort((a, b) => a.name > b.name);
-
-  useEffect(() => {
-    if (createMode) {
-      updateNewName(createMode === 'dir' ? 'New Folder' : 'New Document');
-      inputRef.current.focus();
-    } else if (renameMode) {
-      updateNewName(dirItems.filter((item) => item.id === selectedItems[0])[0].name);
-      inputRef.current.focus();
-    }
-  }, [createMode, renameMode]);
-
-  return (
-    <>
-      {dirItems.map((item, i) => (
-        <div
-          key={i}
-          role="button"
-          className={`Explorer-fs-item${
-            selectedItems.includes(item.id) ? ' Explorer-fs-item-selected' : ''
-          }${clipboard.includes(item.id) ? ' Explorer-fs-item-cut' : ''}`}
-          onClick={() => onSelectItem(item.id)}
-          onDoubleClick={() =>
-            item.isDir ? onDoubleClick(item.id) : onOpenDocument(item.name, item.extension)
-          }
-        >
-          <span>{driveIcon ? <FiHardDrive /> : <ItemIcon isDir={item.isDir} />}</span>
-          <span
-            className={
-              item.id === '_new' || (selectedItems.includes(item.id) && renameMode)
-                ? 'Explorer-fs-item-hidden'
-                : ''
-            }
-          >
-            {item.name}
-            {item.extension ? `.${item.extension}` : ''}
-          </span>
-
-          {(item.id === '_new' || (selectedItems.includes(item.id) && renameMode)) && (
-            <input
-              type="text"
-              className="Explorer-fs-item-pseudo-name"
-              ref={inputRef}
-              value={newName}
-              onChange={(e) => updateNewName(e.target.value)}
-              onKeyUp={(e) => e.key === 'Enter' && onDoneRename(newName)}
-              onBlur={() => onCancelRename(item.name)}
-            />
-          )}
-        </div>
-      ))}
-    </>
-  );
-};
 
 const Explorer = (props) => {
   const { onOpenDocument } = props;
@@ -177,22 +87,20 @@ const Explorer = (props) => {
         />
 
         <div className="Explorer-fs">
-          <div className={currentDir === rootDir ? 'Explorer-rootdirectory' : 'Explorer-directory'}>
-            <DirectoryView
-              items={directoryData}
-              selectedItems={selectedItems}
-              clipboard={!clipboard.mode ? clipboard.items : []}
-              onDoubleClick={onGoToDirectory}
-              onSelectItem={onSelectItem}
-              driveIcon={currentDir === rootDir}
-              createMode={createMode}
-              onCreateItem={onCreateItem}
-              onCancelRename={onCancelRename}
-              renameMode={renameMode}
-              onRenameItem={onRenameItem}
-              onOpenDocument={onOpenDocument}
-            />
-          </div>
+          <Directory
+            items={directoryData}
+            isRootDirectory={rootDir === currentDir}
+            clipboard={!clipboard.mode ? clipboard.items : []}
+            selectedItems={selectedItems}
+            onDoubleClick={onGoToDirectory}
+            createMode={createMode}
+            renameMode={renameMode}
+            onSelectItem={onSelectItem}
+            onCreateItem={onCreateItem}
+            onCancelRename={onCancelRename}
+            onRenameItem={onRenameItem}
+            onOpenDocument={onOpenDocument}
+          />
         </div>
       </div>
     </div>

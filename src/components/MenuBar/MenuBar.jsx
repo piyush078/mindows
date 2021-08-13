@@ -21,7 +21,10 @@ const MenuBar = ({ items }) => {
     >
       {item.title}
       {item.submenu && (
-        <div className="Program-menubar-item-submenu">
+        <div
+          className="Program-menubar-item-submenu"
+          onClick={(e) => e.currentTarget.parentNode.blur()}
+        >
           <MenubarSubmenu submenu={item.submenu} />
         </div>
       )}

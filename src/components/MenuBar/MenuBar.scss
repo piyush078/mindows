@@ -1,3 +1,5 @@
+@import '../../scss/variables';
+
 .Program {
   &-menubar {
     font-size: 13px;
@@ -6,23 +8,24 @@
     justify-content: flex-start;
     flex-direction: row;
     padding: 0 2px 2px 2px;
-    border-bottom: 1px solid lightgray;
+    border-bottom: 2px solid $menuBarBorder;
     
     &-item {
       position: relative;
       padding: 4px 8px;
+      border: 1px solid transparent;
       
       &-submenu {
         position: absolute;
-        border: 2px solid darkgray;
+        border: 1px solid darkgray;
         background: white;
         top: 100%;
-        left: 0;
+        left: -1px;
         padding: 2px;
         min-width: 128px;
         width: max-content;
         display: none;
-        box-shadow: 2px 2px lightgray;
+        box-shadow: 4px 4px 0 -2px #969696;
         
         &-item {
           padding: 0 16px 0 32px;
@@ -32,18 +35,23 @@
           span {
             display: block;
             padding: 4px 8px;
-            border-left: 2px solid blanchedalmond;
           }
         }
 
         &-item:hover {
-          border: 2px solid lightblue;
+          background: $itemBorderColor;
         }
       }
     }
 
+    &-item:hover {
+      background: $itemHoverBg;
+      border: 1px solid $itemBorderColor;
+    }
+
     &-item:focus {
-      background: lightblue;
+      background: $itemFocusBg;
+      border: 1px solid $itemBorderColor;
     }
 
     &-item:focus > &-item-submenu {
