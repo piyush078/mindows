@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-
 import Draggable from 'react-draggable';
+
 import TitleBar from '../../components/TitleBar/TitleBar';
 import MenuBar from '../../components/MenuBar/MenuBar';
+import { getProgramData, initDisk, updateProgramData } from '../../disk';
 import './Program.scss';
 
 const { innerWidth: windowWidth, innerHeight: windowHeight } = window;
@@ -22,6 +23,7 @@ const Program = React.memo(
     const initWindowHeight = app.config?.initWindowHeight || defaultHeight;
     const initWindowWidth = app.config?.initWindowWidth || defaultWidth;
     const programRef = useRef(null);
+    const [disk] = useState(initDisk(app.id, app.version || 1));
 
     // bring the program to foreground on componentDidMount
     useEffect(() => props.onClickWindow(app.pId), []);
@@ -92,9 +94,12 @@ const Program = React.memo(
 
           <div className="Program-component">
             <ProgramComponent
+              docId={app.docId}
               component={app.component}
-              onOpenDocument={props.onOpenDocument}
+              onOpenDocument={app.perms?.OPEN_DOCUMENT ? props.onOpenDocument : () => true}
               createMenubar={(items) => <MenuBar items={items} />}
+              updateProgramData={updateProgramData(disk)}
+              getProgramData={getProgramData(disk)}
             />
           </div>
         </div>

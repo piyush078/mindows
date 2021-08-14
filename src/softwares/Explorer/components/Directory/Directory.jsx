@@ -59,7 +59,9 @@ const Directory = ({
             className={className}
             onClick={() => onSelectItem(item.id)}
             onDoubleClick={() =>
-              item.isDir ? onDoubleClick(item.id) : onOpenDocument(item.name, item.extension)
+              item.isDir
+                ? onDoubleClick(item.id)
+                : onOpenDocument(item.id, item.name, item.extension)
             }
           >
             <span>{isRootDirectory ? <FiHardDrive /> : <Icon isDir={item.isDir} />}</span>

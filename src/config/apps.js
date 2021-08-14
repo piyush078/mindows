@@ -18,6 +18,9 @@ const InstalledApps = {
     name: 'File Explorer',
     icon: FcFolder,
     component: Explorer,
+    perms: {
+      OPEN_DOCUMENT: true,
+    },
   },
   notepad: {
     id: 'notepad',

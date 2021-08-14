@@ -28,13 +28,26 @@
         box-shadow: 4px 4px 0 -2px #969696;
         
         &-item {
-          padding: 0 16px 0 32px;
+          padding: 0 16px 0 16px;
           border-radius: 2px;
+          display: flex;
+          align-items: center;
           border: 2px solid transparent;
 
           span {
-            display: block;
+            display: inline-block;
             padding: 4px 8px;
+          }
+
+          span:first-of-type {
+            height: 16px;
+            width: 16px;
+            padding: 0;
+            font-size: 1em;
+
+            svg {
+              stroke-width: 1.5;
+            }
           }
         }
 

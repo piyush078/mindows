@@ -1,7 +1,7 @@
 const deleteFromIDB = (key) => (db, STORENAME) =>
   new Promise((resolve, reject) => {
     if (!key) {
-      reject('No key provided to delete from the store');
+      reject(new Error('No key provided to delete from the store'));
     }
 
     const transaction = db.transaction(STORENAME, 'readwrite');

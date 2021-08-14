@@ -66,9 +66,9 @@ const Desktop = ({ activeUser }) => {
   };
 
   // open a document from file explorer
-  const onOpenDocument = (name, ext = '*') => {
+  const onOpenDocument = (docId, name, ext = '*') => {
     const app = InstalledApps[defaultApps[ext] || defaultApps['*']];
-    dispatch(startNewProgram(app, { title: name }));
+    dispatch(startNewProgram(app, { docId, title: name }));
   };
 
   return (

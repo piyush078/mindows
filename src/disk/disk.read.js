@@ -1,7 +1,7 @@
 const searchInIDB = (key) => (db, STORENAME) =>
   new Promise((resolve, reject) => {
     if (!key) {
-      reject('No key provided to search the store');
+      reject(new Error('No key provided to search the store'));
     }
 
     const transaction = db.transaction(STORENAME, 'readonly');

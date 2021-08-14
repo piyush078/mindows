@@ -1,3 +1,4 @@
+import { VscCheck } from 'react-icons/vsc';
 import './MenuBar.scss';
 
 const MenuBar = ({ items }) => {
@@ -8,7 +9,10 @@ const MenuBar = ({ items }) => {
         className="Program-menubar-item-submenu-item"
         onClick={subitem.action && subitem.action}
       >
-        <span>{subitem.title}</span>
+        <span className="Program-menubar-item-submenu-item-icon">
+          {subitem.toggleValue && <VscCheck />}
+        </span>
+        <span className="Program-menubar-item-submenu-item-ttl">{subitem.title}</span>
       </div>
     ));
 
