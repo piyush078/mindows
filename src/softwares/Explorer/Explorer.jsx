@@ -27,7 +27,8 @@ const Explorer = (props) => {
   const [renameMode, updateRenameMode] = useState(false);
   const [clipboard, updateClipboard] = useState({ mode: -1, items: [] });
 
-  const onGoToDirectory = (id) => updateCurrentDir(id) || updateSelected([]);
+  const onGoToDirectory = (id) =>
+    updateCurrentDir(id) || updateSelected([]) || (rootDir === currentDir && chooseCategory(id));
   const onSelectItem = (id) => updateSelected([id]);
   const onCancelRename = () => (renameMode ? updateRenameMode(false) : updateCreateMode(false));
 
