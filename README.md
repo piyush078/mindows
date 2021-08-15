@@ -1,11 +1,30 @@
-# <center>mindows</center>
-### <center>A minimal operating system created with ReactJS.</center>
+<center><h1>mindows</h1></center>
+<center><h3>A minimal Operating System created with React.</h3></center>
 
 <img src="https://user-images.githubusercontent.com/20419286/126880139-efdaf35f-ee14-424e-a718-41c7015898af.png" width="100%" />
 
 
 ## About
-This project provides a minimal Windows 10 experience in browser. Currently under construction over `dev` branch. When it is ready to run, it will be branched to `main`.
+This project provides a minimal Windows 10 experience in browser. It runs completely on client's side. The user is presented with screen to create a new user account on the first visit. User can create multiple accounts, and log into any one of them. Desktop, TaskBar and StartMenu are shown after logging in. Basic apps like Notepad (text editor) and File Explorer are pre-built into the app. Windows 10 design is tried to be replicated for both apps.
+
+New documents and folders can be created in File Explorer. Explorer ribbon similar to that in Windows 10 is also provided for Copy/Cut/Paste/Select/Open operations. Furthermore, project is designed in a way to add new apps without affecting the project structure. It's as simple as writing a new app, add it into ```softwares``` folder and edit the ```config/apps.js``` file. Functions like reading/writing filesystem (yeppp, not the real OS filesystem but the browser storage), etc. are automatically passed down to the app.
+
+Filesystem is built using LocalStorage and IndexedDB API of browsers. So, incase the app data is deleted, complete accounts' data are deleted... like after a new OS installation.
+
+<b><i>It's not complete but it's honest work.</i></b>
+
+## Features
+- Windows 10 user interface
+- Persistent Filesystem
+- Multiple user accounts
+- Multiple instances of apps
+- Maximizable, minimizable, draggable and focusable apps instances
+- Custom installable apps
+- Different apps for different types of documents
+- Separation of apps based on permissions
+
+## Contribution
+This is my first project of this level, so it might have bugs. New apps (what about a music player?) can be written and added to the project. For now apps including Calender, Calculator and Settings are not pre-installed into it.
 
 ## Getting Started with Create React App
 
@@ -23,4 +42,30 @@ The windows 10 loading icon has also been inserted from [codepen created by Fern
 - [React Redux](https://react-redux.js.org/)
 - [React Router](https://reactrouter.com/)
 - [React Icons](https://react-icons.github.io/react-icons/)
+- [React Draggable](https://github.com/react-grid-layout/react-draggable)
 - [Sass](https://sass-lang.com/)
+
+## Screenshots
+<img src="https://user-images.githubusercontent.com/20419286/129489730-620d36ae-ad41-4200-a68e-b951affdc137.png" width="100%" alt="Boot Screen" />
+<center><b>Boot Screen</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129488127-c63e22f3-e110-482f-95a1-5d8e7f420b16.png" width="100%" alt="New User Account" />
+<center><b>New User Account Screen</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129488136-64f09700-ee4d-46e5-9d1d-f689f87ba114.png" width="100%" alt="Switch User" />
+<center><b>Switch User Screen</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129488144-cf9241b8-1134-424c-886c-bb360864914e.png" width="100%" alt="Desktop" />
+<center><b>Desktop</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129488142-b2bef82e-6d1c-475b-a88d-806655db6b4c.png" width="100%" alt="Start Menu" />
+<center><b>Desktop with Start Menu</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129488132-dbc31adb-fbfe-46f2-8d9d-73b0e2cb7005.png" width="100%" alt="File Explorer" />
+<center><b>File Explorer</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129489731-0a185c23-62a1-46ff-84d0-3722fec27136.png" width="100%" alt="Notepad" />
+<center><b>Notepad</b></center>
+
+<img src="https://user-images.githubusercontent.com/20419286/129489748-bd1355bc-8212-40ff-9afc-3f812a87ed62.png" width="100%" alt="Logging Out" />
+<center><b>Logout Screen</b></center>
