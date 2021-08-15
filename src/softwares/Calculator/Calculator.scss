@@ -1,0 +1,29 @@
+@use '../../scss/mixins';
+
+.Calculator {
+  @include mixins.fullscreen;
+  display: flex;
+
+  &-leftbar {
+    height: 100%;
+    flex: 1;
+    border-right: 2px solid lightgray;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    font-size: 2.5em;
+
+    svg {
+      margin-bottom: 1em;
+    }
+  }
+
+  &-rightbar {
+    height: 100%;
+    flex: 2;
+    padding: 2rem 1rem;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+  }
+}

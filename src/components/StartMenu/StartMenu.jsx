@@ -9,7 +9,7 @@ import { getName } from '../../redux/auth/auth.user';
 import './StartMenu.scss';
 
 const StartMenuDrawer = React.memo(
-  ({ user }) => {
+  ({ user, onLaunchApp }) => {
     const [drawer, toggleDrawer] = useState(false);
 
     return (
@@ -29,13 +29,19 @@ const StartMenuDrawer = React.memo(
             </div>
             <div className="StartMenu-account-list-item-label">{getName(user)}</div>
           </div>
-          <div className="StartMenu-account-list-item">
+          <div
+            className="StartMenu-account-list-item"
+            onClick={() => onLaunchApp(InstalledApps.fsexplorer)}
+          >
             <div className="StartMenu-account-list-item-icon">
               <VscFolder />
             </div>
             <div className="StartMenu-account-list-item-label">File Explorer</div>
           </div>
-          <div className="StartMenu-account-list-item">
+          <div
+            className="StartMenu-account-list-item"
+            onClick={() => onLaunchApp(InstalledApps.settings)}
+          >
             <div className="StartMenu-account-list-item-icon">
               <VscSettingsGear />
             </div>
@@ -142,9 +148,9 @@ const StartMenuPromotions = React.memo(
 );
 
 const StartMenu = React.memo(
-  ({ user, hide, onProgramClick }) => (
+  ({ user, hide, launchExplorer, launchSettings, onProgramClick }) => (
     <div className="StartMenu" style={{ bottom: hide ? '-512px' : '48px' }}>
-      <StartMenuDrawer user={user} />
+      <StartMenuDrawer user={user} onLaunchApp={onProgramClick} />
       <StartMenuApps onClick={onProgramClick} />
       <StartMenuPromotions hide={hide} />
     </div>
