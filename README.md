@@ -9,7 +9,7 @@ This project provides a minimal Windows 10 experience in browser. It runs comple
 
 New documents and folders can be created in File Explorer. Explorer ribbon similar to that in Windows 10 is also provided for Copy/Cut/Paste/Select/Open operations. Furthermore, project is designed in a way to add new apps without affecting the project structure. It's as simple as writing a new app, add it into ```softwares``` folder and edit the ```config/apps.js``` file. Functions like reading/writing filesystem (yeppp, not the real OS filesystem but the browser storage), etc. are automatically passed down to the app.
 
-Filesystem is built using LocalStorage and IndexedDB API of browsers. So, incase the app data is deleted, complete accounts' data are deleted... like after a new OS installation.
+Filesystem is built using [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) API of browsers. So, incase the app data is deleted, complete accounts' data are deleted... like after a new OS installation.
 
 <b><i>It's not complete but it's honest work.</i></b>
 
