@@ -5,6 +5,11 @@ export const loadAccount = (activeUser) => ({
   payload: activeUser,
 });
 
+export const saveAccount = (activeUser) => ({
+  type: AccountActionTypes.SAVE_ACCOUNT,
+  payload: activeUser,
+});
+
 export const getAccountSettings = () => ({
   type: AccountActionTypes.GET_ACCOUNT_SETTINGS,
 });

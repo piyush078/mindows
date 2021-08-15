@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-size: .9rem;
+}
+
 html, body, #root, .App {
   @include mixins.reset;
   @include mixins.fullscreen;

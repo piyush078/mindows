@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 
 import TaskBar from '../../components/TaskBar/TaskBar';
 import StartMenu from '../../components/StartMenu/StartMenu';
@@ -11,19 +10,39 @@ import {
   selectDefaultApps,
   selectTaskBarApps,
 } from '../../redux/account/account.selectors';
-import { loadAccount } from '../../redux/account/account.actions';
+import { loadAccount, saveAccount } from '../../redux/account/account.actions';
 import { startNewProgram, terminateProgram } from '../../redux/memory/memory.action';
 import { selectAppsInstances, selectProgramsData } from '../../redux/memory/memory.selectors';
 import './Desktop.scss';
+import Loading from '../../components/Loading/Loading';
+import { logOut } from '../../redux/auth/auth.actions';
 
 const Desktop = ({ activeUser }) => {
   const accountSettings = useSelector(selectAccountSettings);
   const dispatch = useDispatch();
   const [startMenu, toggleStartMenu] = useState(false);
+  const [opacity, updateOpacity] = useState(1);
+  const [logoutMode, startLogoutMode] = useState(false);
   const style = {
+    opacity,
     backgroundImage: `url(${process.env.PUBLIC_URL}"/images/${accountSettings.background}")`,
   };
+
   useEffect(() => dispatch(loadAccount(activeUser)), []);
+  useEffect(() => {
+    if (!opacity) {
+      setTimeout(() => {
+        startLogoutMode(true);
+        updateOpacity(1);
+        setTimeout(() => {
+          dispatch(saveAccount(activeUser));
+          dispatch(logOut());
+        }, 4000);
+      }, 400);
+    }
+  }, [opacity]);
+
+  console.log(activeUser);
 
   // programsData: { pId_1: programData, pId_2: programData }
   // appsInstances: { calculator: [pId_1, .., pId_k], calendar: [pId_1,..., pId_m] }
@@ -73,34 +92,41 @@ const Desktop = ({ activeUser }) => {
 
   return (
     <div className="Desktop" style={style}>
-      {runningPrograms.map((pId) => (
-        <Program
-          key={pId}
-          app={programsData[pId]}
-          isMinimized={minimized[pId]}
-          zIndex={windows.pId === pId ? windows.maxZIndex : 'auto'}
-          onMinimize={(_pId) => onToggleMinimize(_pId, true)}
-          onTerminate={() => dispatch(terminateProgram(pId))}
-          onClickWindow={onClickProgramWindow}
-          onOpenDocument={onOpenDocument}
-        />
-      ))}
+      {logoutMode ? (
+        <Loading message="Logging out" fadeInTime=".5s" />
+      ) : (
+        <>
+          {runningPrograms.map((pId) => (
+            <Program
+              key={pId}
+              app={programsData[pId]}
+              isMinimized={minimized[pId]}
+              zIndex={windows.pId === pId ? windows.maxZIndex : 'auto'}
+              onMinimize={(_pId) => onToggleMinimize(_pId, true)}
+              onTerminate={() => dispatch(terminateProgram(pId))}
+              onClickWindow={onClickProgramWindow}
+              onOpenDocument={onOpenDocument}
+            />
+          ))}
 
-      <StartMenu
-        user={activeUser}
-        hide={!startMenu}
-        onProgramClick={(app) => onStartNewProgram(app)}
-      />
+          <StartMenu
+            user={activeUser}
+            hide={!startMenu}
+            onLogout={() => updateOpacity(0)}
+            onProgramClick={(app) => onStartNewProgram(app)}
+          />
 
-      <TaskBar
-        apps={taskbarAppsData}
-        programs={appsInstances}
-        programsData={programsData}
-        onInstanceClick={(pId) => onSelectFromTaskBar(pId)}
-        onIconClick={(app) => onStartNewProgram(app)}
-        onMindowsClick={() => toggleStartMenu(!startMenu)}
-        onCloseInstance={(pId) => dispatch(terminateProgram(pId))}
-      />
+          <TaskBar
+            apps={taskbarAppsData}
+            programs={appsInstances}
+            programsData={programsData}
+            onInstanceClick={(pId) => onSelectFromTaskBar(pId)}
+            onIconClick={(app) => onStartNewProgram(app)}
+            onMindowsClick={() => toggleStartMenu(!startMenu)}
+            onCloseInstance={(pId) => dispatch(terminateProgram(pId))}
+          />
+        </>
+      )}
     </div>
   );
 };

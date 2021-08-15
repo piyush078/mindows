@@ -101,7 +101,6 @@ const TaskBar = ({
       <div className="TaskBar-App">
         <Clock />
       </div>
-      <div className="TaskBar-App">&nbsp;</div>
     </div>
   </div>
 );

@@ -30,6 +30,10 @@ const AuthReducer = (state = initialState, action) => {
       return { ...state, error: { text: Strings.INCORRECT_PASSWORD, __id: new Date().getTime() } };
     }
 
+    case AuthActionTypes.LOGOUT_USER: {
+      return { ...state, success: null, error: null, activeUser: null };
+    }
+
     default:
       return { ...state, users: safeguardUser(state.users) };
   }

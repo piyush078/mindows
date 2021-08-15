@@ -13,3 +13,7 @@ export const signInUser = (userIndex, password) => ({
   type: AuthActionTypes.SIGN_IN,
   payload: { userIndex, password },
 });
+
+export const logOut = () => ({
+  type: AuthActionTypes.LOGOUT_USER,
+});

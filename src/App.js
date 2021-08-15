@@ -17,6 +17,8 @@ const App = () => {
   const location = useLocation();
   useEffect(() => setTimeout(() => dispatch(checkUserSession()), 2000), [dispatch]);
 
+  console.log(activeUser);
+
   return (
     <div className="App">
       <Switch location={location} key={location.pathname}>

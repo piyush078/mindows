@@ -6,6 +6,7 @@ import {
   linkNodes,
   copyNodes,
   moveNodes,
+  saveAccountInStorage,
 } from './account.utils';
 import Node from './account.fs';
 import Wallpapers from '../../config/wallpapers';
@@ -30,6 +31,12 @@ const AccountReducer = (state = initialState, action) => {
     case AccountActionTypes.LOAD_ACCOUNT: {
       const loadedAccount = getAccountFromStorage(action.payload);
       return { ...state, ...loadedAccount };
+    }
+
+    case AccountActionTypes.SAVE_ACCOUNT: {
+      const activeAccount = action.payload;
+      saveAccountInStorage(activeAccount, state);
+      return state;
     }
 
     case AccountActionTypes.CREATE_NEW_DIR_ITEM: {

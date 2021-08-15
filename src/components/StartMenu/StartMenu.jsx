@@ -9,7 +9,7 @@ import { getName } from '../../redux/auth/auth.user';
 import './StartMenu.scss';
 
 const StartMenuDrawer = React.memo(
-  ({ user, onLaunchApp }) => {
+  ({ user, onLogout, onLaunchApp }) => {
     const [drawer, toggleDrawer] = useState(false);
 
     return (
@@ -47,7 +47,7 @@ const StartMenuDrawer = React.memo(
             </div>
             <div className="StartMenu-account-list-item-label">Settings</div>
           </div>
-          <div className="StartMenu-account-list-item">
+          <div className="StartMenu-account-list-item" onClick={onLogout}>
             <div className="StartMenu-account-list-item-icon">
               <RiShutDownLine />
             </div>
@@ -148,9 +148,9 @@ const StartMenuPromotions = React.memo(
 );
 
 const StartMenu = React.memo(
-  ({ user, hide, launchExplorer, launchSettings, onProgramClick }) => (
+  ({ user, hide, onLogout, onProgramClick }) => (
     <div className="StartMenu" style={{ bottom: hide ? '-512px' : '48px' }}>
-      <StartMenuDrawer user={user} onLaunchApp={onProgramClick} />
+      <StartMenuDrawer user={user} onLaunchApp={onProgramClick} onLogout={onLogout} />
       <StartMenuApps onClick={onProgramClick} />
       <StartMenuPromotions hide={hide} />
     </div>
