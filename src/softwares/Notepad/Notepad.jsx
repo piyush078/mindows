@@ -17,10 +17,10 @@ const formMenubarItems = (onSave, onExit, wordWrap, onWordWrap) => [
 ];
 
 const Notepad = (props) => {
-  const { docId, updateProgramData, getProgramData, createMenubar } = props;
+  const { docId, onTerminate, updateProgramData, getProgramData, createMenubar } = props;
   const textRef = useRef(null);
   const [text, updateText] = useState('');
-  const onExit = () => console.log('Terminate program');
+  const onExit = onTerminate;
   const [wordWrap, onToggleWordWrap] = useState(false);
   const style = { whiteSpace: wordWrap ? 'nowrap' : 'pre-wrap' };
 

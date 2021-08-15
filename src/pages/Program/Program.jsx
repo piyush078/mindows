@@ -100,6 +100,7 @@ const Program = React.memo(
               createMenubar={(items) => <MenuBar items={items} />}
               updateProgramData={updateProgramData(disk)}
               getProgramData={getProgramData(disk)}
+              onTerminate={() => props.onTerminate(app.id)}
             />
           </div>
         </div>

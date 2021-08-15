@@ -42,8 +42,6 @@ const Desktop = ({ activeUser }) => {
     }
   }, [opacity]);
 
-  console.log(activeUser);
-
   // programsData: { pId_1: programData, pId_2: programData }
   // appsInstances: { calculator: [pId_1, .., pId_k], calendar: [pId_1,..., pId_m] }
   // runningPrograms: [pId_1, pId_2, ...]
