@@ -1,5 +1,5 @@
-<center><h1>mindows</h1></center>
-<center><h3>A minimal Operating System created with React.</h3></center>
+<h1 align="center">mindows</h1>
+<h3 align="center">A minimal Operating System created with React.</h3>
 
 <img src="https://user-images.githubusercontent.com/20419286/126880139-efdaf35f-ee14-424e-a718-41c7015898af.png" width="100%" />
 
@@ -46,26 +46,42 @@ The windows 10 loading icon has also been inserted from [codepen created by Fern
 - [Sass](https://sass-lang.com/)
 
 ## Screenshots
+**Boot Screen**
+
 <img src="https://user-images.githubusercontent.com/20419286/129489730-620d36ae-ad41-4200-a68e-b951affdc137.png" width="100%" alt="Boot Screen" />
-<center><b>Boot Screen</b></center>
+<br/>
+
+**New User Account Screen**
 
 <img src="https://user-images.githubusercontent.com/20419286/129488127-c63e22f3-e110-482f-95a1-5d8e7f420b16.png" width="100%" alt="New User Account" />
-<center><b>New User Account Screen</b></center>
+<br/>
+
+**Switch User Screen**
 
 <img src="https://user-images.githubusercontent.com/20419286/129488136-64f09700-ee4d-46e5-9d1d-f689f87ba114.png" width="100%" alt="Switch User" />
-<center><b>Switch User Screen</b></center>
+<br/>
+
+**Desktop**
 
 <img src="https://user-images.githubusercontent.com/20419286/129488144-cf9241b8-1134-424c-886c-bb360864914e.png" width="100%" alt="Desktop" />
-<center><b>Desktop</b></center>
+<br/>
+
+**Desktop with Start Menu**
 
 <img src="https://user-images.githubusercontent.com/20419286/129488142-b2bef82e-6d1c-475b-a88d-806655db6b4c.png" width="100%" alt="Start Menu" />
-<center><b>Desktop with Start Menu</b></center>
+<br/>
+
+**File Explorer**
 
 <img src="https://user-images.githubusercontent.com/20419286/129488132-dbc31adb-fbfe-46f2-8d9d-73b0e2cb7005.png" width="100%" alt="File Explorer" />
-<center><b>File Explorer</b></center>
+<br/>
+
+**Notepad**
 
 <img src="https://user-images.githubusercontent.com/20419286/129489731-0a185c23-62a1-46ff-84d0-3722fec27136.png" width="100%" alt="Notepad" />
-<center><b>Notepad</b></center>
+<br/>
+
+**Logout Screen**
 
 <img src="https://user-images.githubusercontent.com/20419286/129489748-bd1355bc-8212-40ff-9afc-3f812a87ed62.png" width="100%" alt="Logging Out" />
-<center><b>Logout Screen</b></center>
+<br/>
