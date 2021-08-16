@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { FiHardDrive } from 'react-icons/fi';
 import Icon from '../Icon/Icon';
 
-const defaultName = (isDir) => (isDir ? 'New Folder' : 'New Document');
+const defaultName = (isDir) => (isDir === 'dir' ? 'New Folder' : 'New Document');
 const newItem = (itemType) => ({
   id: '_new',
   name: defaultName(itemType === 'dir'),
