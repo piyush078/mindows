@@ -21,7 +21,7 @@ const LockCover = ({ background, onDoneLoading, autoHide }) => {
   const dateTimeFormat = formatDateTime(currentDateTime, dateOptions, timeOptions);
 
   // add escape key event listener
-  const onPressEscape = function (event) {
+  const onPressEscape = (event) => {
     if (event.key === 'Escape') updateClass('LockCover');
   };
 

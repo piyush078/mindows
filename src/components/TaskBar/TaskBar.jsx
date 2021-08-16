@@ -15,10 +15,10 @@ const TaskBarAppInstances = ({
   onCloseInstance,
 }) => {
   const Instances = ({ instances }) =>
-    instances.map((instance, key) => (
+    instances.map((instance) => (
       <div
         className="TaskBar-app-instances-item"
-        key={key}
+        key={instance}
         onClick={() => onInstanceClick(instance)}
       >
         <span className="TaskBar-app-instances-item-title">{data[instance].title}</span>
@@ -47,7 +47,7 @@ const TaskBarAppInstances = ({
     );
   };
 
-  return apps.map((app, i) => <App key={i} app={app} onClick={onIconClick} />);
+  return apps.map((app) => <App key={app.id} app={app} onClick={onIconClick} />);
 };
 
 const TaskBar = ({

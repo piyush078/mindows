@@ -37,8 +37,8 @@ const Sidebar = React.memo(
           <span>{Strings.PC_FILESYSTEM_ROOT_NAME}</span>
         </div>
         <div className="Explorer-sidebar-item-subitems">
-          {directoryData.map((item, i) => (
-            <SideNavbarItem key={i} item={item} />
+          {directoryData.map((item) => (
+            <SideNavbarItem key={item.id} item={item} />
           ))}
         </div>
       </div>

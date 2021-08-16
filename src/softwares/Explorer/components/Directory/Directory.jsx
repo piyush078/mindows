@@ -29,7 +29,6 @@ const Directory = ({
   const inputRef = useRef(null);
   const onDoneRename = (toName) => (createMode ? onCreateItem(toName) : onRenameItem(toName));
   const dirItems = formatDirectoryItems(items, createMode);
-  const sortItems = () => dirItems.sort((a, b) => a.name > b.name);
 
   // on change of createMode or renameMode, update input field with name
   useEffect(() => {
@@ -44,7 +43,7 @@ const Directory = ({
 
   return (
     <div className={isRootDirectory ? 'Explorer-rootdirectory' : 'Explorer-directory'}>
-      {dirItems.map((item, i) => {
+      {dirItems.map((item) => {
         const toBeRenamed = item.id === '_new' || (selectedItems.includes(item.id) && renameMode);
         const className =
           `Explorer-fs-item ` +
@@ -53,7 +52,7 @@ const Directory = ({
 
         return (
           <div
-            key={i}
+            key={item.id}
             role="button"
             tabIndex="0"
             className={className}

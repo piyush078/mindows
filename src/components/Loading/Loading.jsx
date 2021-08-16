@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import BootLogo from '../BootLogo/BootLogo';
 import './Loading.scss';
 

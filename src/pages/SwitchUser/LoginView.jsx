@@ -3,7 +3,7 @@ import { VscEye, VscArrowRight } from 'react-icons/vsc';
 import { AiOutlineUser } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
-import { getName } from '../../redux/auth/auth.user';
+import { getName, getUsername } from '../../redux/auth/auth.user';
 import Strings from '../../config/strings';
 import BootLogo from '../../components/BootLogo/BootLogo';
 import Button from '../../components/Button/Button';
@@ -96,7 +96,7 @@ const LoginView = ({ users, background, onLogin, authError, authSuccess }) => {
           <div className="login-users-list">
             {users.map((user, ind) => (
               <li
-                key={ind}
+                key={getUsername(user)}
                 current={selectedUser === ind ? 1 : 0}
                 className="login-users-list-item"
                 onClick={() => changeSelectedUser(ind)}

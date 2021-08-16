@@ -94,8 +94,8 @@ const StartMenuApps = React.memo(
 
     return (
       <div className="StartMenu-apps">
-        {smApps.map((cat, i) => (
-          <Category category={cat} key={i} />
+        {smApps.map((cat) => (
+          <Category category={cat} key={cat.category} />
         ))}
       </div>
     );
