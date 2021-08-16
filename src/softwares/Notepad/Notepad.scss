@@ -1,0 +1,26 @@
+@use '../../scss/mixins';
+
+.Notepad {
+  @include mixins.fullscreen;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &-content {
+    @include mixins.fullscreen;
+    @include mixins.fonttype;
+
+    &-textarea {
+      @include mixins.fullscreen;
+      padding: 8px;
+      resize: none !important;
+      outline: none !important;
+      border: 0 !important;
+      overflow-y: scroll;
+    }
+    
+    &-textarea:focus {
+      outline: none !important;
+    }
+  }
+}

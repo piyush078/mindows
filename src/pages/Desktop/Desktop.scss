@@ -1,0 +1,10 @@
+@use '../../scss/mixins';
+
+.Desktop {
+  @include mixins.fullscreen;
+  @include mixins.wallpaperbg;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity .5s ease;
+}

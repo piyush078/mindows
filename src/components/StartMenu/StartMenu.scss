@@ -1,0 +1,183 @@
+@use '../../scss/mixins';
+@import '../../scss/variables';
+
+$startMenuHeight: 512px;
+$startMenuBottomOffset: 48px;
+$startMenuAppsWidth: 320px;
+$startMenuPromotionsWidth: 660px;
+$startMenuPromotionsLargeWidth: $startMenuPromotionsWidth / 3;
+$startMenuPromotionsSmallWidth: $startMenuPromotionsWidth / 6;
+
+
+.StartMenu {
+  position: absolute;
+  left: 0;
+  bottom: $startMenuBottomOffset;
+  font-size: 16px;
+  height: $startMenuHeight;
+  padding-top: 16px;
+  display: flex;
+  align-items: flex-start;
+  background: $taskBarBg;
+  color: $taskBarFg;
+  transition: bottom 0.5s ease, width 0.5s ease;
+  z-index: 9999;
+
+  &-account[active='false'] {
+    width: 48px;
+  }
+
+  &-account {
+
+    width: $startMenuAppsWidth;
+    height: 100%;
+    transition: width .5s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: $taskBarBg;
+    z-index: 99;
+
+    &-nav &-list-item-label {
+      @include mixins.fonttype('semibold');
+    }
+
+    &-list {
+      &-item {
+        height: 53.21px;
+        padding: 16px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+
+        &-label {
+          margin-left: 32px;
+          text-overflow: clip;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        &-icon {
+          height: 100%;
+          font-size: 1.25em;
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  &-apps {
+    position: absolute;
+    top: 0;
+    left: 48px;
+    width: $startMenuAppsWidth;
+    padding: 16px 16px 0 16px;
+    background: $taskBarBg;
+    height: 100%;
+
+    &-category {
+      padding-top: 16px;
+
+      &-header {
+        @include mixins.fonttype('semibold');
+        padding-bottom: 16px;
+        padding-top: -4px;
+      }
+
+      &-list {
+        &-item {
+          display: flex;
+          align-items: center;
+          cursor: default;
+          margin-right: 48px;
+          padding: 2px 2px 2px 0;
+          border: 2px solid transparent;
+
+          &-icon {
+            padding: 8px;
+            background: #3e3c91;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+          }
+
+          &-label {
+            margin-left: 8px;
+          }
+        }
+
+        &-item:active {
+          border: 2px solid white;
+        }
+      }
+    }
+  }
+
+  &-promotions {
+    position: absolute;
+    top: 0;
+    left: $startMenuAppsWidth;
+    width: $startMenuPromotionsWidth + 64px;
+    height: $startMenuHeight;
+    padding-top: 16px;
+    background: $taskBarBg;
+    display: flex;
+
+    > * {
+      margin-top: 16px;
+      flex: 1;
+      padding-right: 16px;
+    }
+
+    &-header {
+      @include mixins.fonttype('semibold');
+      padding-bottom: 16px;
+    }
+
+    &-list {
+      display: flex;
+      flex-wrap: wrap;
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      &-item {
+        height: $startMenuPromotionsSmallWidth;
+        position: relative;
+        display: flex;
+        margin-right: 4px;
+        margin-bottom: 4px;
+        
+        &-icon {
+          margin: auto;
+          font-size: 32px;
+        }
+
+        &-label {
+          font-size: 12px;
+          position: absolute;
+          left: 0;
+          padding: 0 4px;
+          bottom: 8px;
+          width: 100%;
+          text-align: center;
+        }
+
+      }
+
+      &-item[wsize='large'] {
+        width: $startMenuPromotionsLargeWidth + 4px;
+      }
+
+      &-item[wsize='small'] {
+        width: $startMenuPromotionsSmallWidth;
+      }
+    }
+  }
+}

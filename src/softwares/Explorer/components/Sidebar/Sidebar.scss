@@ -1,0 +1,25 @@
+.Explorer-sidebar {
+  position: sticky;
+  top: 0;
+  width: 144px;
+  height: 100%;
+  font-size: 13px;
+  border-right: 1px solid lightgray;
+  cursor: default;
+
+  &-item {
+    display: flex;
+    padding: 4px 8px;
+
+    &-subitems {
+      > * {
+        padding-left: 16px;
+      }
+    }
+
+    & span:first-of-type {
+      font-size: 1.25em;
+      margin-right: 8px;
+    }
+  }
+}

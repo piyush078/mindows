@@ -1,12 +1,19 @@
-@use './index';
+@use './scss/mixins';
 
 * {
-  @include index.reset;
+  @include mixins.reset;
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: .9rem;
 }
 
 html, body, #root, .App {
-  @include index.reset;
-  @include index.fullScreen;
+  @include mixins.reset;
+  @include mixins.fullscreen;
 
   overflow: hidden !important;
 }
+
+@include mixins.transitionFadeIn;

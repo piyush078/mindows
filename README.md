@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+<h1 align="center">mindows</h1>
+<h3 align="center">A minimal Operating System created with React.</h3>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<img src="https://user-images.githubusercontent.com/20419286/126880139-efdaf35f-ee14-424e-a718-41c7015898af.png" width="100%" />
 
-## Available Scripts
 
-In the project directory, you can run:
+## About
+This project provides a minimal Windows 10 experience in browser. It runs completely on client's side. The user is presented with screen to create a new user account on the first visit. User can create multiple accounts, and log into any one of them. Desktop, TaskBar and StartMenu are shown after logging in. Basic apps like Notepad (text editor) and File Explorer are pre-built into the app. Windows 10 design is tried to be replicated for both apps.
 
-### `npm start`
+New documents and folders can be created in File Explorer. Explorer ribbon similar to that in Windows 10 is also provided for Copy/Cut/Paste/Select/Open operations. Furthermore, project is designed in a way to add new apps without affecting the project structure. It's as simple as writing a new app, add it into ```softwares``` folder and edit the ```config/apps.js``` file. Functions like reading/writing filesystem (yeppp, not the real OS filesystem but the browser storage), etc. are automatically passed down to the app.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Filesystem is built using [LocalStorage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) and [IndexedDB](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API) API of browsers. So, incase the app data is deleted, complete accounts' data are deleted... like after a new OS installation.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+<b><i>It's not complete but it's honest work.</i></b>
 
-### `npm test`
+## Features
+- Windows 10 user interface
+- Persistent Filesystem
+- Multiple user accounts
+- Multiple instances of apps
+- Maximizable, minimizable, draggable and focusable apps instances
+- Custom installable apps
+- Different apps for different types of documents
+- Separation of apps based on permissions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Contribution
+This is my first project of this level, so it might have bugs. New apps (what about a music player?) can be written and added to the project. For now apps including Calender, Calculator and Settings are not pre-installed into it.
 
-### `npm run build`
+## Getting Started with Create React App
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app). Follow the steps at [ReactJS](https://github.com/facebook/react) for more information about running this project locally.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Credits
+Wallpapers used in the project are taken from different websites.
+- [Windows 10 Official Wallpaper](http://wallpaperswide.com/windows_10_hero_4k-wallpapers.html)
+- [Wharariki Beach Cave, Archway Islands, South Island of New Zealand](https://windows10spotlight.com/images/9fa80fd805562a6bc817f01f48b8b93e)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The windows 10 loading icon has also been inserted from [codepen created by Fernando de Almeida Faria](https://codepen.io/feebaa/pen/PPrLQP).
 
-### `npm run eject`
+## Used Libraries
+- [ReactJS](https://reactjs.org/)
+- [React Redux](https://react-redux.js.org/)
+- [React Router](https://reactrouter.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Draggable](https://github.com/react-grid-layout/react-draggable)
+- [Sass](https://sass-lang.com/)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Screenshots
+**Boot Screen**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+<img src="https://user-images.githubusercontent.com/20419286/129489730-620d36ae-ad41-4200-a68e-b951affdc137.png" width="100%" alt="Boot Screen" />
+<br/>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**New User Account Screen**
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+<img src="https://user-images.githubusercontent.com/20419286/129488127-c63e22f3-e110-482f-95a1-5d8e7f420b16.png" width="100%" alt="New User Account" />
+<br/>
 
-## Learn More
+**Switch User Screen**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img src="https://user-images.githubusercontent.com/20419286/129488136-64f09700-ee4d-46e5-9d1d-f689f87ba114.png" width="100%" alt="Switch User" />
+<br/>
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**Desktop**
 
-### Code Splitting
+<img src="https://user-images.githubusercontent.com/20419286/129488144-cf9241b8-1134-424c-886c-bb360864914e.png" width="100%" alt="Desktop" />
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+**Desktop with Start Menu**
 
-### Analyzing the Bundle Size
+<img src="https://user-images.githubusercontent.com/20419286/129488142-b2bef82e-6d1c-475b-a88d-806655db6b4c.png" width="100%" alt="Start Menu" />
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+**File Explorer**
 
-### Making a Progressive Web App
+<img src="https://user-images.githubusercontent.com/20419286/129488132-dbc31adb-fbfe-46f2-8d9d-73b0e2cb7005.png" width="100%" alt="File Explorer" />
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+**Notepad**
 
-### Advanced Configuration
+<img src="https://user-images.githubusercontent.com/20419286/129489731-0a185c23-62a1-46ff-84d0-3722fec27136.png" width="100%" alt="Notepad" />
+<br/>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+**Logout Screen**
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<img src="https://user-images.githubusercontent.com/20419286/129489748-bd1355bc-8212-40ff-9afc-3f812a87ed62.png" width="100%" alt="Logging Out" />
+<br/>

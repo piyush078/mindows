@@ -1,0 +1,74 @@
+@import '../../scss/variables';
+
+.Program {
+  &-menubar {
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    padding: 0 2px 2px 2px;
+    border-bottom: 2px solid $menuBarBorder;
+    
+    &-item {
+      position: relative;
+      padding: 4px 8px;
+      border: 1px solid transparent;
+      
+      &-submenu {
+        position: absolute;
+        border: 1px solid darkgray;
+        background: white;
+        top: 100%;
+        left: -1px;
+        padding: 2px;
+        min-width: 128px;
+        width: max-content;
+        display: none;
+        box-shadow: 4px 4px 0 -2px #969696;
+        
+        &-item {
+          padding: 0 16px 0 16px;
+          border-radius: 2px;
+          display: flex;
+          align-items: center;
+          border: 2px solid transparent;
+
+          span {
+            display: inline-block;
+            padding: 4px 8px;
+          }
+
+          span:first-of-type {
+            height: 16px;
+            width: 16px;
+            padding: 0;
+            font-size: 1em;
+
+            svg {
+              stroke-width: 1.5;
+            }
+          }
+        }
+
+        &-item:hover {
+          background: $itemBorderColor;
+        }
+      }
+    }
+
+    &-item:hover {
+      background: $itemHoverBg;
+      border: 1px solid $itemBorderColor;
+    }
+
+    &-item:focus {
+      background: $itemFocusBg;
+      border: 1px solid $itemBorderColor;
+    }
+
+    &-item:focus > &-item-submenu {
+      display: block;
+    }
+  }
+}

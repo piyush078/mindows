@@ -1,0 +1,29 @@
+@use '../../scss/mixins';
+
+.Loading {
+  @include mixins.fullscreen;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  transition-property: opacity;
+  transition-timing-function: ease;
+} 
+
+.heading {
+  text-align: center;
+  padding-top: 48px;
+
+  p {
+    color: white;
+    @include mixins.fonttype('light');
+  }
+
+  &-subtitle {
+    font-size: 24px;
+  }
+}

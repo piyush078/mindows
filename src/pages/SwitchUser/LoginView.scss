@@ -1,0 +1,187 @@
+@use '../../scss/mixins';
+$pfpBackground: rgba(188, 188, 188, 0.5);
+
+.LoginScreen {
+  @include mixins.fullscreen;
+  @include mixins.wallpaperbg;
+}
+
+.LoginScreen::after {
+  @include mixins.overlay;
+}
+
+.PseudoLoginScreen {
+  @include mixins.fullscreen;
+
+  display: flex;
+  position: absolute;
+  flex: 1;
+  top: 0;
+  left: 0;
+
+  > * {
+    margin: auto;
+  }
+}
+
+.login-form {
+
+  @include mixins.fonttype('light');
+  $pfpWidth: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .login-pfp {
+    height: $pfpWidth;
+    width: $pfpWidth;
+    border-radius: 50%;
+    background: $pfpBackground;
+    font-size: 160px;
+    text-align: center;
+    color: white;
+
+    > * {
+      margin: auto;
+    }
+  }
+
+  .login-username {
+    color: white;
+    font-size: 48px;
+    margin-top: 16px;
+  }
+
+  .login-fields {
+
+    $inputBackground: rgba(14, 20, 32, 0.5);
+    margin-top: 24px;
+
+    input {
+      background: $inputBackground;
+      width: 320px;
+      font-size: 18px;
+      padding: 8px 8px;
+      outline: none;
+      border: 2px solid white;
+      color: white;
+    }
+
+    .login-fields-username > input {
+      margin-bottom: 16px;
+    }
+
+    input:focus, input:valid {
+      background: white;
+      color: black;
+      border: 1px solid white;
+    }
+
+    input:not(:valid) + .login-fields-password-eye {
+      visibility: hidden;
+    }
+
+    input:focus + .login-fields-password-eye svg, input:valid + .login-fields-password-eye svg {
+      fill: black;
+    }
+
+    .login-fields-password {
+      position: relative;
+
+      input {
+        padding-right: 80px;
+      }
+
+      .login-fields-password-svgs {
+        position: absolute;
+        display: flex;
+        flex: 1;
+        top: 1px;
+        bottom: 1px;
+        width: 36px;
+        cursor: pointer;
+
+        > * {
+          margin: auto;
+          fill: white;
+        }
+      }
+
+      .login-fields-password-arrow {
+        @extend .login-fields-password-svgs;
+        right: 1px;
+        background: rgb(128,128,128);
+      }
+
+      .login-fields-password-eye {
+        @extend .login-fields-password-svgs;
+        right: 40px;
+      }
+    }
+  }
+}
+
+.login-users-list {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  cursor: default;
+
+  &-item {
+    @include mixins.fonttype;
+    display: flex;
+    align-items: center;
+    color: white;
+    font-size: 16px;
+    padding: 4px 8px;
+
+    &-pfp {
+      display: flex;
+      background: $pfpBackground;
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      margin-right: 16px;
+    }
+
+    & svg {
+      height: 24px;
+      width: 24px;
+      margin: auto;
+    }
+  }
+
+  li[current='1'] {
+    background: #1c7797;
+  }
+}
+
+.LoginSuccess {
+  @include mixins.fonttype;
+  display: flex;
+  margin-top: 24px;
+  font-size: 20px;
+  color: white;
+  align-items: center;
+
+  span {
+    margin-left: 8px;
+  }
+}
+
+.LoginError {
+  @extend .LoginSuccess;
+  flex-direction: column;
+  align-items: center;
+
+  span {
+    margin-left: 0;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  button {
+    background: rgba(255,255,255,0.2);
+    border: 2px solid white;
+  }
+}

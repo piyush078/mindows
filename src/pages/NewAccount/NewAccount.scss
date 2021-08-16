@@ -1,0 +1,43 @@
+@use '../../scss/mixins';
+
+.NewAccount {
+  @include mixins.fullscreen;
+  position: absolute;
+  background: #1f1e49;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.view-header {
+  width: 100%;
+  background: #13122b;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+
+  > * {
+    padding: 8px 0;
+  }
+
+  > svg {
+    font-size: 32px;
+  }
+
+  &-title {
+    @include mixins.fonttype('semibold');
+    text-align: center;
+    width: 320px;
+    color: white;
+    border-bottom: 2px solid white;
+  }
+}
+
+.view-content {
+  @include mixins.fullscreen;
+  height: calc(100% - 40px);
+  position: relative;
+}

@@ -1,0 +1,161 @@
+@use '../../scss/mixins';
+@import '../../scss/variables';
+
+$taskBarHeight: 48px;
+$taskBarAppSpacing: 16px;
+
+.TaskBar-children {
+  font-size: 16px;
+  margin-bottom: -4px;
+  display: flex;
+  height: $taskBarHeight;
+  align-items: center;
+}
+
+.TaskBar-left {
+  display: flex;
+  align-items: flex-start;
+
+  > * {
+    @extend .TaskBar-children;
+    padding: 0 $taskBarAppSpacing;
+  }
+}
+
+.TaskBar-right {
+  display: flex;
+  align-items: flex-end;
+  
+  > * {
+    @extend .TaskBar-children;
+    padding: 0 ($taskBarAppSpacing * .5);
+  }
+}
+
+.TaskBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $taskBarHeight !important;
+  background: $taskBarBg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 10000;
+
+  > * {
+    height: $taskBarHeight;
+  }
+
+  svg {
+    fill: $taskBarFg;
+  }
+
+  &-searchbar {
+    position: relative;
+    width: 400px;
+    height: $taskBarHeight;
+
+    &-pseudo, input {
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      font-size: 16px;
+      padding: 0 $taskBarAppSpacing;
+    }
+
+    &-pseudo {
+      display: flex;
+      align-items: center;
+      color: white;
+      background: #625959;
+
+      span {
+        margin-left: 12px;
+      }
+    }
+
+    input {
+      outline: none;
+      border: 0;
+      height: $taskBarHeight;
+      transition: background 0.25s ease;
+    }
+
+    input:not(:valid) {
+      background: transparent;
+    }
+
+    input:valid, input:focus {
+      background: white;
+      color: black;
+    }
+  }
+
+  &-app {
+    margin-left: 4px;
+    font-size: 24px;
+
+    &-instances {
+      position: absolute;
+      font-size: 12px;
+      display: none;
+      flex-direction: column;
+      width: max-content;
+      min-width: 240px;
+      bottom: 100%;
+      top: -1;
+      transform: translateX(-50%);
+      background: $taskBarHoverBg;
+
+      &-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 16px;
+        cursor: default;
+        margin: 2px 8px;
+        border-radius: 4px;
+
+        &-title {
+          @include mixins.fonttype('semibold');
+          margin-right: 8px;
+          color: white;
+        }
+
+        &-close {
+          padding: 2px;
+
+          > * {
+            margin-bottom: -2px;
+          }
+        }
+      }
+
+      &-item:first-of-type {
+        margin-top: 6px;
+      }
+
+      &-item:last-of-type {
+        margin-bottom: 6px;
+      }
+
+      &-item:hover {
+        background: rgba(227, 21, 62, 0.4);
+      }
+    }
+  }
+
+  &-app:hover > * {
+    display: flex;
+  }
+
+  &-app-running {
+    border-bottom: 4px solid aqua;
+    background: rgba(192, 192, 192, 0.1);
+  }
+}
