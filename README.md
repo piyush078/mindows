@@ -3,7 +3,6 @@
 
 <img src="https://user-images.githubusercontent.com/20419286/126880139-efdaf35f-ee14-424e-a718-41c7015898af.png" width="100%" />
 
-
 ## About
 This project provides a minimal Windows 10 experience in browser. It runs completely on client's side. The user is presented with screen to create a new user account on the first visit. User can create multiple accounts, and log into any one of them. Desktop, TaskBar and StartMenu are shown after logging in. Basic apps like Notepad (text editor) and File Explorer are pre-built into the app. Windows 10 design is tried to be replicated for both apps.
 
@@ -44,6 +43,9 @@ The windows 10 loading icon has also been inserted from [codepen created by Fern
 - [React Icons](https://react-icons.github.io/react-icons/)
 - [React Draggable](https://github.com/react-grid-layout/react-draggable)
 - [Sass](https://sass-lang.com/)
+
+## Demo Video
+https://user-images.githubusercontent.com/20419286/130333497-d30219b2-feb7-44f2-af92-61731db6d98f.mp4
 
 ## Screenshots
 **Boot Screen**
